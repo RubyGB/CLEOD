@@ -1,0 +1,4 @@
+// again not for parsing, but a human-readable bytecode-compiled version of Cleod1.cleod
+// note that our compiler should be able to evaluate literal expressions at compile-time to compress them
+0000    OP_PRINT    0
+0001    OP_PRINT    -1.25

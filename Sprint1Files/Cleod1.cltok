@@ -1,0 +1,14 @@
+// not a file to be parsed, rather this is what the set of tokens from Cleod1.cleod should look like in memory
+PRINT
+LIT_INTEGER 0
+SEMICOLON
+PRINT
+LEFT_PAREN
+LIT_INTEGER 2
+MINUS
+LIT_INTEGER 6
+RIGHT_PAREN
+SLASH
+LIT_FLOATING 2.4
+SEMICOLON
+EOF
