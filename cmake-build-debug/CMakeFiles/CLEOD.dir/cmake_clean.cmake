@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/CLEOD.dir/main.cpp.obj"
   "CMakeFiles/CLEOD.dir/Frontend/Token.cpp.obj"
   "CMakeFiles/CLEOD.dir/Frontend/Scanner.cpp.obj"
+  "CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj"
   "CLEOD.pdb"
   "CLEOD.exe"
   "CLEOD.exe.manifest"

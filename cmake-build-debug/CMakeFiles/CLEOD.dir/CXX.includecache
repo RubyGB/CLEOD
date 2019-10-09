@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.cpp
+Chunk.h
+C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.h
+
+C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.h
+cstdint
+-
+vector
+-
+
+C:/Users/jonwi/Desktop/CLEOD/main.cpp
+iostream
+-
+MiddleEnd/Chunk.h
+C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.h
+

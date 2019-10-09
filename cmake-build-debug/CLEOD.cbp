@@ -92,6 +92,12 @@
 		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/Frontend/Token.h">
 			<Option target="CLEOD"/>
 		</Unit>
+		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.cpp">
+			<Option target="CLEOD"/>
+		</Unit>
+		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.h">
+			<Option target="CLEOD"/>
+		</Unit>
 		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/main.cpp">
 			<Option target="CLEOD"/>
 		</Unit>

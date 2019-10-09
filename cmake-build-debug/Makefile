@@ -176,6 +176,33 @@ Frontend/Token.cpp.s:
 	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/Frontend/Token.cpp.s
 .PHONY : Frontend/Token.cpp.s
 
+MiddleEnd/Chunk.obj: MiddleEnd/Chunk.cpp.obj
+
+.PHONY : MiddleEnd/Chunk.obj
+
+# target to build an object file
+MiddleEnd/Chunk.cpp.obj:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj
+.PHONY : MiddleEnd/Chunk.cpp.obj
+
+MiddleEnd/Chunk.i: MiddleEnd/Chunk.cpp.i
+
+.PHONY : MiddleEnd/Chunk.i
+
+# target to preprocess a source file
+MiddleEnd/Chunk.cpp.i:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.i
+.PHONY : MiddleEnd/Chunk.cpp.i
+
+MiddleEnd/Chunk.s: MiddleEnd/Chunk.cpp.s
+
+.PHONY : MiddleEnd/Chunk.s
+
+# target to generate assembly for a file
+MiddleEnd/Chunk.cpp.s:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.s
+.PHONY : MiddleEnd/Chunk.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -218,6 +245,9 @@ help:
 	@echo ... Frontend/Token.obj
 	@echo ... Frontend/Token.i
 	@echo ... Frontend/Token.s
+	@echo ... MiddleEnd/Chunk.obj
+	@echo ... MiddleEnd/Chunk.i
+	@echo ... MiddleEnd/Chunk.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
