@@ -15,10 +15,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MiddleEnd/Chunk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/MiddleEnd/Chunk.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MiddleEnd/Chunk.h" beforeDir="false" afterPath="$PROJECT_DIR$/MiddleEnd/Chunk.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sprint1Files/Cleod1.clbyt" beforeDir="false" afterPath="$PROJECT_DIR$/Sprint1Files/Cleod1.clbyt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sprint1Files/Cleod1.cltok" beforeDir="false" afterPath="$PROJECT_DIR$/Sprint1Files/Cleod1.cltok" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CLEOD.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CLEOD.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/CXX.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/Middleend/Chunk.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/Middleend/Chunk.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CLEOD.dir/objects.a" afterDir="false" />
@@ -77,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570467621658</updated>
-      <workItem from="1570467623012" duration="16631000" />
+      <workItem from="1570467623012" duration="18325000" />
     </task>
     <servers />
   </component>

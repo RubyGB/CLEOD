@@ -25,6 +25,7 @@ static_assert(std::numeric_limits<double>::is_iec559, "CLEOD requires double to 
 clint readInt(const std::vector<byte> &bytes, uint pos);
 void writeInt(std::vector<byte> &bytes, clint val);
 cluint readUint(const std::vector<byte> &bytes, uint pos);
+void writeUint(std::vector<byte> &bytes, cluint val);
 double readDouble(const std::vector<byte> &bytes, uint pos);
 bool readBool(const std::vector<byte> &bytes, uint pos);
 std::string readString(const std::vector<byte> &bytes, uint pos);
