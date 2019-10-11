@@ -19,6 +19,49 @@ typedef uint64_t cluint;
 // Require double to be in IEC60559 format -- note that this also forces it to be 64 bits.
 static_assert(std::numeric_limits<double>::is_iec559, "CLEOD requires double to be in IEC60559 format to compile.");
 
+// Error class for when user tries to read data and hits "eof" for the bytecode/literals
+class ByteOutOfRangeException {
+private:
+    uint where;
+    uint max;
+public:
+    ByteOutOfRangeException(uint where, uint max);
+    std::string what() const;
+};
+
+//  LiteralByteStream class is a wrapper for std::vector<byte> that has lots of helper functions for managing
+//      inserting/extracting of literal values into byte stream properly.
+class LiteralByteStream {
+private:
+    std::vector<byte> bytes;
+
+    // Unions for conveniently converting between bytes and data types
+    union ClintByteMask {
+        clint c;
+        byte b[8];
+    };
+    union CluintByteMask {
+        cluint c;
+        byte b[8];
+    };
+    union DoubleByteMask {
+        double d;
+        byte b[8];
+    };
+public:
+    clint readInt(uint pos) const;
+    void writeInt(clint val);
+    cluint readUint(uint pos) const;
+    void writeUint(cluint val);
+    byte readByte(uint pos) const;
+    void writeByte(byte val);
+    double readDouble(uint pos) const;
+    void writeDouble(double val);
+    bool readBool(uint pos) const;
+    void writeBool(bool val);
+    std::string readString(uint pos) const;
+    void writeString(std::string val);
+};
 
 enum class Opcode : byte {
     OP_PRINT // 1-operand. Specifies index of literal to print.
@@ -35,68 +78,43 @@ struct Operation {
     byte operand3;
 };
 
-// Error class for when user tries to read data and hits "eof" for the bytecode/literals
-class ByteOutOfRangeException {
+class OperationOutOfRangeException {
 private:
     uint where;
     uint max;
 public:
-    ByteOutOfRangeException(uint where, uint max);
-    std::string what();
+    OperationOutOfRangeException(uint where, uint max);
+    std::string what() const;
 };
 
-//  LiteralByteStream class is a wrapper for std::vector<byte> that has lots of helper functions for managing
-//      inserting/extracting of values into byte stream properly.
-class LiteralByteStream {
+//  Class for writing/reading operations to a stream of bytes.
+class OperationByteStream {
 private:
-    std::vector<byte> bytes;
+    std::vector<Operation> bytecode;
     uint head = 0;
-
-    // Unions for conveniently converting between bytes and data types
-    union ClintByteMask {
-        clint c;
-        byte b[8];
-    };
-    union CluintByteMask {
-        cluint c;
-        byte b[8];
-    };
-    union DoubleByteMask {
-        double d;
-        byte b[8];
-    };
 public:
-    clint readInt();
-    void writeInt(clint val);
-    cluint readUint();
-    void writeUint(cluint val);
-    byte readByte();
-    void writeByte(byte val);
-    double readDouble();
-    void writeDouble(double val);
-    bool readBool();
-    void writeBool(bool val);
-    std::string readString();
-    void writeString(std::string val);
+    const Operation &readOp();
+    void writeOp(Operation op);
 
-    // sets the byte counter to 0
     void resetHead();
-    // sets the byte counter directly
     void setHead(uint pos);
-    // moves the head / byte counter back by amount
     void stepBack(uint amount);
 };
 
-// Due to overhead, Chunk is size 52 -- we can fit lots of bytecode in a single chunk, though! We're really only limited
-// by the max number of constants
 class Chunk {
-    std::vector<Operation> bytecode;
+    OperationByteStream bytecode;
+    LiteralByteStream literals;
 
     // indexMap takes a literal index and gives you the actual index in the literals vector
     // note that strings are NULL-TERMINATED in the literals vector - they are variable length and we only give the
     // starting position!
-    std::vector<byte> literals; // will have to use helper methods to convert byte stream into corresponding value
     std::unordered_map<byte, uint> indexMap;
+
+
+    //  note: when compiling and writing to indexMap, we will implement literal re-use checking. i.e. if we have the
+    //      literal 1 at index 4, and we come across a new literal to compile, then we check if it *already exists* at
+    //      any particular index. if so, we just reuse this index. For commonly used literals such as 0, 1 etc. this
+    //      can save up to 16 bytes per literal
 };
 
 
