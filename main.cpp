@@ -1,14 +1,10 @@
 #include <iostream>
 
-#include "MiddleEnd/Chunk.h"
+#include "MiddleEnd/Bytecode.h"
 
 int main() {
-    //  Note that in practice we wouldn't be doing all this stepping back -- the usual data flow would be writing all
-    //      the bytecode into a file, then reading it in sequence to execute it in the virtual machine.
-    //      reset() and stepBack() are moreso utility/debugging functions.
-
     std::cout << "Basic tests on writing/reading literal data..." << std::endl;
-    LiteralByteStream lbs;
+    ByteStream lbs;
     lbs.writeInt(75);
     lbs.writeInt(601);
     std::cout << "75 as clint is: " << lbs.readInt(0) << std::endl; // should output 75
@@ -47,19 +43,16 @@ int main() {
     std::cout << "Result: " << lbs.readString(0) << std::endl;
     std::cout << "Unsurprising behaviour, since most bytes in a clint are empty -> null character." << std::endl;
 
-    std::cout << "Size of Operation: " << sizeof(Operation) << std::endl;
-    std::cout << "Basic tests on writing/reading opcodes..." << std::endl;
-    OperationByteStream obs;
-    obs.writeOp({Opcode::OP_PRINT, 5, 0, 0});
-    Operation top = obs.readOp();
-    std::cout << "OP_PRINT with operand 5 is: " << std::to_string(static_cast<byte>(top.op)) << " " << std::to_string(top.operand1) << std::endl;
-    std::cout << "Will now try to read another op that doesn't exist..." << std::endl;
-    try {
-        top = obs.readOp();
+    std::cout << "Testing bytecode class..." << std::endl;
+    ByteStream code;
+    code.writeOpcode(Opcode::OP_PRINT);
+    code.writeByte(0); // type 0 -> integer
+    code.writeInt(7401586); // value to print
+    Bytecode bc(code);
+    if(bc.nextOpcode() == Opcode::OP_PRINT) {
+        if (bc.nextByte() == 0)
+            std::cout << "Wow, this is an int: " << bc.nextInt() << std::endl;
     }
-    catch(OperationOutOfRangeException &e) {
-        std::cout << "Error: " << e.what() << std::endl;
-    }
-
+    // In practice, this is how we would parse bytecode
     return 0;
 }

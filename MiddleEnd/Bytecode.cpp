@@ -2,7 +2,7 @@
 // Created by jonwi on 10/9/2019.
 //
 
-#include "Chunk.h"
+#include "Bytecode.h"
 
 #include <iostream>
 #include <string>
@@ -11,14 +11,10 @@ ByteOutOfRangeException::ByteOutOfRangeException(uint where, uint max) : where(w
 std::string ByteOutOfRangeException::what() const {
     return "Attempted to access byte " + std::to_string(where) + " when maximum byte was " + std::to_string(max) + ".";
 }
-OperationOutOfRangeException::OperationOutOfRangeException(uint where, uint max) : where(where), max(max) {}
-std::string OperationOutOfRangeException::what() const {
-    return "Attempted to access operation " + std::to_string(where) + " when maximum op was " + std::to_string(max) + ".";
-}
 
 const uint64_t BYTE_MASK = 0xFF;
 
-clint LiteralByteStream::readInt(uint pos) const {
+clint ByteStream::readInt(uint pos) const {
     ClintByteMask cbm = {0};
     for(uint end = pos + 8; pos < end; pos++) {
         if(pos >= bytes.size())
@@ -27,12 +23,12 @@ clint LiteralByteStream::readInt(uint pos) const {
     }
     return cbm.c;
 }
-void LiteralByteStream::writeInt(clint val) {
+void ByteStream::writeInt(clint val) {
     for(int j = 0; j < 8; j++) {
         bytes.push_back((val & (BYTE_MASK << 8 * j)) >> 8 * j);
     }
 }
-cluint LiteralByteStream::readUint(uint pos) const {
+cluint ByteStream::readUint(uint pos) const {
     CluintByteMask cbm = {0};
     for(uint end = pos + 8; pos < end; pos++) {
         if(pos >= bytes.size())
@@ -41,19 +37,19 @@ cluint LiteralByteStream::readUint(uint pos) const {
     }
     return cbm.c;
 }
-void LiteralByteStream::writeUint(cluint val) {
+void ByteStream::writeUint(cluint val) {
     for(int j = 0; j < 8; j++)
         bytes.push_back((val & (BYTE_MASK << 8 * j)) >> 8 * j);
 }
-byte LiteralByteStream::readByte(uint pos) const {
+byte ByteStream::readByte(uint pos) const {
     if(pos >= bytes.size())
         throw ByteOutOfRangeException(pos, bytes.size() - 1);
     return bytes[pos];
 }
-void LiteralByteStream::writeByte(byte val) {
+void ByteStream::writeByte(byte val) {
     bytes.push_back(val);
 }
-double LiteralByteStream::readDouble(uint pos) const {
+double ByteStream::readDouble(uint pos) const {
     DoubleByteMask dbm = {0};
     for(uint end = pos + 8; pos < end; pos++) {
         if(pos >= bytes.size())
@@ -62,22 +58,22 @@ double LiteralByteStream::readDouble(uint pos) const {
     }
     return dbm.d;
 }
-void LiteralByteStream::writeDouble(double val) {
+void ByteStream::writeDouble(double val) {
     DoubleByteMask dbm = {val};
     for(int j = 0; j < 8; j++)
         bytes.push_back(dbm.b[j]);
 }
-bool LiteralByteStream::readBool(uint pos) const {
+bool ByteStream::readBool(uint pos) const {
     if(pos >= bytes.size())
         throw ByteOutOfRangeException(pos, bytes.size() - 1);
     if(bytes[pos])
         return true;
     return false;
 }
-void LiteralByteStream::writeBool(bool val) {
+void ByteStream::writeBool(bool val) {
     bytes.push_back(val ? 1 : 0);
 }
-std::string LiteralByteStream::readString(uint pos) const {
+std::string ByteStream::readString(uint pos) const {
     //  Strings in bytecode are NULL-TERMINATED. So we go until we find a '\0' character or go out of bounds.
     //      Note that this is a really easy way to throw an exception or get spooky behaviour if there's no string at head.
     //      Also note that since most clints will have plenty of empty bytes, this will probably not throw error in most cases.
@@ -92,32 +88,66 @@ std::string LiteralByteStream::readString(uint pos) const {
     }
     return result;
 }
-void LiteralByteStream::writeString(std::string val) {
+void ByteStream::writeString(std::string val) {
     for(char c : val)
         bytes.push_back(static_cast<byte>(c));
     bytes.push_back(static_cast<byte>('\0'));
 }
+Opcode ByteStream::readOpcode(uint pos) const {
+    return static_cast<Opcode>(readByte(pos));
+}
+void ByteStream::writeOpcode(Opcode val) {
+    writeByte(static_cast<byte>(val));
+}
+
+byte ByteStream::operator[](uint i) const {
+    if(i >= bytes.size())
+        throw ByteOutOfRangeException(i, bytes.size() - 1);
+    return bytes[i];
+}
+byte &ByteStream::operator[](uint i) {
+    if(i >= bytes.size())
+        throw ByteOutOfRangeException(i, bytes.size() - 1);
+    return bytes[i];
+}
+uint ByteStream::size() const {
+    return bytes.size();
+}
 
 
-const Operation &OperationByteStream::readOp() {
-    if(head >= bytecode.size())
-        throw OperationOutOfRangeException(head, bytecode.size() - 1);
-    return bytecode[head++];
+Bytecode::Bytecode(ByteStream code) : code(code) {}
+Opcode Bytecode::nextOpcode() {
+    Opcode result = code.readOpcode(head);
+    head++;
+    return result;
 }
-void OperationByteStream::writeOp(Operation op) {
-    bytecode.push_back(op);
+clint Bytecode::nextInt() {
+    clint result = code.readInt(head);
+    head += 8;
+    return result;
 }
-void OperationByteStream::resetHead() {
+byte Bytecode::nextByte() {
+    byte result = code.readByte(head);
+    head++;
+    return result;
+}
+
+void Bytecode::resetHead() {
     head = 0;
 }
-void OperationByteStream::setHead(uint pos) {
+void Bytecode::setHead(uint pos) {
+    if(pos >= code.size())
+        throw ByteOutOfRangeException(pos, code.size() - 1);
     head = pos;
-    if(head >= bytecode.size())
-        throw OperationOutOfRangeException(head, bytecode.size() - 1);
 }
-void OperationByteStream::stepBack(uint amount) {
-    head -= amount;
+void Bytecode::stepBack(uint amount) {
     // head is a uint, so subtracting to below 0 will certainly have it above our bytecode size
-    if(head >= bytecode.size())
-        throw OperationOutOfRangeException(head, bytecode.size() - 1);
+    if(head - amount >= code.size())
+        throw ByteOutOfRangeException(head - amount, code.size() - 1);
+    head -= amount;
+}
+void Bytecode::stepForward(uint amount) {
+    if(head + amount >= code.size())
+        throw ByteOutOfRangeException(head + amount, code.size() - 1);
+    head += amount;
 }

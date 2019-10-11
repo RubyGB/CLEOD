@@ -6,7 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/jonwi/Desktop/CLEOD/Frontend/Scanner.cpp" "C:/Users/jonwi/Desktop/CLEOD/cmake-build-debug/CMakeFiles/CLEOD.dir/Frontend/Scanner.cpp.obj"
   "C:/Users/jonwi/Desktop/CLEOD/Frontend/Token.cpp" "C:/Users/jonwi/Desktop/CLEOD/cmake-build-debug/CMakeFiles/CLEOD.dir/Frontend/Token.cpp.obj"
-  "C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.cpp" "C:/Users/jonwi/Desktop/CLEOD/cmake-build-debug/CMakeFiles/CLEOD.dir/Middleend/Chunk.cpp.obj"
+  "C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Bytecode.cpp" "C:/Users/jonwi/Desktop/CLEOD/cmake-build-debug/CMakeFiles/CLEOD.dir/Middleend/Bytecode.cpp.obj"
   "C:/Users/jonwi/Desktop/CLEOD/main.cpp" "C:/Users/jonwi/Desktop/CLEOD/cmake-build-debug/CMakeFiles/CLEOD.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

@@ -95,25 +95,25 @@ CMakeFiles/CLEOD.dir/Frontend/Scanner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CLEOD.dir/Frontend/Scanner.cpp.s"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jonwi\Desktop\CLEOD\Frontend\Scanner.cpp -o CMakeFiles\CLEOD.dir\Frontend\Scanner.cpp.s
 
-CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj: CMakeFiles/CLEOD.dir/flags.make
-CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj: ../MiddleEnd/Chunk.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonwi\Desktop\CLEOD\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CLEOD.dir\MiddleEnd\Chunk.cpp.obj -c C:\Users\jonwi\Desktop\CLEOD\MiddleEnd\Chunk.cpp
+CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.obj: CMakeFiles/CLEOD.dir/flags.make
+CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.obj: ../MiddleEnd/Bytecode.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jonwi\Desktop\CLEOD\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CLEOD.dir\MiddleEnd\Bytecode.cpp.obj -c C:\Users\jonwi\Desktop\CLEOD\MiddleEnd\Bytecode.cpp
 
-CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jonwi\Desktop\CLEOD\MiddleEnd\Chunk.cpp > CMakeFiles\CLEOD.dir\MiddleEnd\Chunk.cpp.i
+CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jonwi\Desktop\CLEOD\MiddleEnd\Bytecode.cpp > CMakeFiles\CLEOD.dir\MiddleEnd\Bytecode.cpp.i
 
-CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jonwi\Desktop\CLEOD\MiddleEnd\Chunk.cpp -o CMakeFiles\CLEOD.dir\MiddleEnd\Chunk.cpp.s
+CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jonwi\Desktop\CLEOD\MiddleEnd\Bytecode.cpp -o CMakeFiles\CLEOD.dir\MiddleEnd\Bytecode.cpp.s
 
 # Object files for target CLEOD
 CLEOD_OBJECTS = \
 "CMakeFiles/CLEOD.dir/main.cpp.obj" \
 "CMakeFiles/CLEOD.dir/Frontend/Token.cpp.obj" \
 "CMakeFiles/CLEOD.dir/Frontend/Scanner.cpp.obj" \
-"CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj"
+"CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.obj"
 
 # External object files for target CLEOD
 CLEOD_EXTERNAL_OBJECTS =
@@ -121,7 +121,7 @@ CLEOD_EXTERNAL_OBJECTS =
 CLEOD.exe: CMakeFiles/CLEOD.dir/main.cpp.obj
 CLEOD.exe: CMakeFiles/CLEOD.dir/Frontend/Token.cpp.obj
 CLEOD.exe: CMakeFiles/CLEOD.dir/Frontend/Scanner.cpp.obj
-CLEOD.exe: CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj
+CLEOD.exe: CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.obj
 CLEOD.exe: CMakeFiles/CLEOD.dir/build.make
 CLEOD.exe: CMakeFiles/CLEOD.dir/linklibs.rsp
 CLEOD.exe: CMakeFiles/CLEOD.dir/objects1.rsp

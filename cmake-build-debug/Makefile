@@ -176,32 +176,32 @@ Frontend/Token.cpp.s:
 	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/Frontend/Token.cpp.s
 .PHONY : Frontend/Token.cpp.s
 
-MiddleEnd/Chunk.obj: MiddleEnd/Chunk.cpp.obj
+MiddleEnd/Bytecode.obj: MiddleEnd/Bytecode.cpp.obj
 
-.PHONY : MiddleEnd/Chunk.obj
+.PHONY : MiddleEnd/Bytecode.obj
 
 # target to build an object file
-MiddleEnd/Chunk.cpp.obj:
-	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.obj
-.PHONY : MiddleEnd/Chunk.cpp.obj
+MiddleEnd/Bytecode.cpp.obj:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.obj
+.PHONY : MiddleEnd/Bytecode.cpp.obj
 
-MiddleEnd/Chunk.i: MiddleEnd/Chunk.cpp.i
+MiddleEnd/Bytecode.i: MiddleEnd/Bytecode.cpp.i
 
-.PHONY : MiddleEnd/Chunk.i
+.PHONY : MiddleEnd/Bytecode.i
 
 # target to preprocess a source file
-MiddleEnd/Chunk.cpp.i:
-	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.i
-.PHONY : MiddleEnd/Chunk.cpp.i
+MiddleEnd/Bytecode.cpp.i:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.i
+.PHONY : MiddleEnd/Bytecode.cpp.i
 
-MiddleEnd/Chunk.s: MiddleEnd/Chunk.cpp.s
+MiddleEnd/Bytecode.s: MiddleEnd/Bytecode.cpp.s
 
-.PHONY : MiddleEnd/Chunk.s
+.PHONY : MiddleEnd/Bytecode.s
 
 # target to generate assembly for a file
-MiddleEnd/Chunk.cpp.s:
-	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Chunk.cpp.s
-.PHONY : MiddleEnd/Chunk.cpp.s
+MiddleEnd/Bytecode.cpp.s:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.s
+.PHONY : MiddleEnd/Bytecode.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -245,9 +245,9 @@ help:
 	@echo ... Frontend/Token.obj
 	@echo ... Frontend/Token.i
 	@echo ... Frontend/Token.s
-	@echo ... MiddleEnd/Chunk.obj
-	@echo ... MiddleEnd/Chunk.i
-	@echo ... MiddleEnd/Chunk.s
+	@echo ... MiddleEnd/Bytecode.obj
+	@echo ... MiddleEnd/Bytecode.i
+	@echo ... MiddleEnd/Bytecode.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

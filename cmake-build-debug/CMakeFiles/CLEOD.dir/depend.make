@@ -7,9 +7,9 @@ CMakeFiles/CLEOD.dir/Frontend/Scanner.cpp.obj: ../Frontend/Scanner.h
 CMakeFiles/CLEOD.dir/Frontend/Token.cpp.obj: ../Frontend/Token.cpp
 CMakeFiles/CLEOD.dir/Frontend/Token.cpp.obj: ../Frontend/Token.h
 
-CMakeFiles/CLEOD.dir/Middleend/Chunk.cpp.obj: ../MiddleEnd/Chunk.cpp
-CMakeFiles/CLEOD.dir/Middleend/Chunk.cpp.obj: ../MiddleEnd/Chunk.h
+CMakeFiles/CLEOD.dir/Middleend/Bytecode.cpp.obj: ../MiddleEnd/Bytecode.cpp
+CMakeFiles/CLEOD.dir/Middleend/Bytecode.cpp.obj: ../MiddleEnd/Bytecode.h
 
-CMakeFiles/CLEOD.dir/main.cpp.obj: ../MiddleEnd/Chunk.h
+CMakeFiles/CLEOD.dir/main.cpp.obj: ../MiddleEnd/Bytecode.h
 CMakeFiles/CLEOD.dir/main.cpp.obj: ../main.cpp
 

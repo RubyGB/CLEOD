@@ -6,7 +6,15 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.h
+C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Bytecode.cpp
+Bytecode.h
+C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Bytecode.h
+iostream
+-
+string
+-
+
+C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Bytecode.h
 cstdint
 -
 vector
@@ -15,10 +23,4 @@ unordered_map
 -
 limits
 -
-
-C:/Users/jonwi/Desktop/CLEOD/main.cpp
-iostream
--
-MiddleEnd/Chunk.h
-C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Chunk.h
 

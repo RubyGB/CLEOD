@@ -3,4 +3,4 @@ project(CLEOD)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CLEOD main.cpp Frontend/Token.cpp Frontend/Token.h Frontend/Scanner.cpp Frontend/Scanner.h MiddleEnd/Chunk.cpp MiddleEnd/Chunk.h)
+add_executable(CLEOD main.cpp Frontend/Token.cpp Frontend/Token.h Frontend/Scanner.cpp Frontend/Scanner.h MiddleEnd/Bytecode.cpp MiddleEnd/Bytecode.h)
