@@ -7,7 +7,7 @@ int main() {
     //      the bytecode into a file, then reading it in sequence to execute it in the virtual machine.
     //      reset() and stepBack() are moreso utility/debugging functions.
 
-    std::cout << "Basic tests on writing/reading data..." << std::endl;
+    std::cout << "Basic tests on writing/reading literal data..." << std::endl;
     LiteralByteStream lbs;
     lbs.writeInt(75);
     lbs.writeInt(601);
@@ -48,5 +48,18 @@ int main() {
     std::cout << "Unsurprising behaviour, since most bytes in a clint are empty -> null character." << std::endl;
 
     std::cout << "Size of Operation: " << sizeof(Operation) << std::endl;
+    std::cout << "Basic tests on writing/reading opcodes..." << std::endl;
+    OperationByteStream obs;
+    obs.writeOp({Opcode::OP_PRINT, 5, 0, 0});
+    Operation top = obs.readOp();
+    std::cout << "OP_PRINT with operand 5 is: " << std::to_string(static_cast<byte>(top.op)) << " " << std::to_string(top.operand1) << std::endl;
+    std::cout << "Will now try to read another op that doesn't exist..." << std::endl;
+    try {
+        top = obs.readOp();
+    }
+    catch(OperationOutOfRangeException &e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+
     return 0;
 }
