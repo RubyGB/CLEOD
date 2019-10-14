@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/Backend/VirtualMachine.cpp">
+			<Option target="CLEOD"/>
+		</Unit>
+		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/Backend/VirtualMachine.h">
+			<Option target="CLEOD"/>
+		</Unit>
 		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/Frontend/Scanner.cpp">
 			<Option target="CLEOD"/>
 		</Unit>
@@ -96,6 +102,12 @@
 			<Option target="CLEOD"/>
 		</Unit>
 		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Bytecode.h">
+			<Option target="CLEOD"/>
+		</Unit>
+		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Compiler.cpp">
+			<Option target="CLEOD"/>
+		</Unit>
+		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/MiddleEnd/Compiler.h">
 			<Option target="CLEOD"/>
 		</Unit>
 		<Unit filename="C:/Users/jonwi/Desktop/CLEOD/main.cpp">

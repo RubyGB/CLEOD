@@ -1,16 +1,9 @@
 // again not for parsing, but a human-readable bytecode-compiled version of Cleod1.cleod
-// note that our compiler should be able to evaluate literal expressions at compile-time to compress them
-0000    OP_PRINT    0
-0001    OP_PRINT    1
-
-//  literals vector looks like: (in hex, 8 bytes => FF FF FF FF FF FF FF FF)
-//      {00 00 00 00 00 00 00 00 (8 byte int, = 0), ? (-1.25 in IEC60559 floating representation, 8 bytes)}
-//  see https://www.geeksforgeeks.org/ieee-standard-754-floating-point-numbers/ for view of IEEE754 double precision format.
-
-//  indexMap looks like:
-//      {0->0, 1->8}
-
-
-// notes for executing bytecode in VM:
-// for a given chunk, process operations one at a time. if a literal index j is given,
-// access it via chunk.literals[chunk.indexMap[j]].
+0000    LITERAL | INT | 0 (8 bytes)             # 0 on stack
+000A    PRINT                                   # PRINT consumes 0 from stack
+000B    LITERAL | INT | 2 (8 bytes)             # 2 on stack
+0015    LITERAL | INT | 6 (8 bytes)             # 6 on stack
+001F    SUBTRACT                                # 2, 6 consumed from stack. (2 - 6) now on stack
+0020    LITERAL | DOUBLE | 2.4 (8 bytes)        # 2.4 now on stack
+002A    DIVIDE                                  # (2 - 6) and 2.4 consumed from stack. (2 - 6) / 2.4 now on stack
+002B    PRINT                                   # PRINT consumes (2 - 6) / 2.4 from stack

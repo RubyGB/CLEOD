@@ -75,7 +75,7 @@ void ByteStream::writeBool(bool val) {
 }
 std::string ByteStream::readString(uint pos) const {
     //  Strings in bytecode are NULL-TERMINATED. So we go until we find a '\0' character or go out of bounds.
-    //      Note that this is a really easy way to throw an exception or get spooky behaviour if there's no string at head.
+    //      Note that this is a really easy way to throw an exception or get spooky behaviour if there's no string at pc.
     //      Also note that since most clints will have plenty of empty bytes, this will probably not throw error in most cases.
     char c;
     std::string result = "";
@@ -99,6 +99,12 @@ Opcode ByteStream::readOpcode(uint pos) const {
 void ByteStream::writeOpcode(Opcode val) {
     writeByte(static_cast<byte>(val));
 }
+DataType ByteStream::readDataType(uint pos) const {
+    return static_cast<DataType>(readByte(pos));
+}
+void ByteStream::writeDataType(DataType val) {
+    writeByte(static_cast<byte>(val));
+}
 
 byte ByteStream::operator[](uint i) const {
     if(i >= bytes.size())
@@ -110,6 +116,9 @@ byte &ByteStream::operator[](uint i) {
         throw ByteOutOfRangeException(i, bytes.size() - 1);
     return bytes[i];
 }
+void ByteStream::operator<<(byte b) {
+    writeByte(b);
+}
 uint ByteStream::size() const {
     return bytes.size();
 }
@@ -117,37 +126,37 @@ uint ByteStream::size() const {
 
 Bytecode::Bytecode(ByteStream code) : code(code) {}
 Opcode Bytecode::nextOpcode() {
-    Opcode result = code.readOpcode(head);
-    head++;
+    Opcode result = code.readOpcode(pc);
+    pc++;
     return result;
 }
 clint Bytecode::nextInt() {
-    clint result = code.readInt(head);
-    head += 8;
+    clint result = code.readInt(pc);
+    pc += 8;
     return result;
 }
 byte Bytecode::nextByte() {
-    byte result = code.readByte(head);
-    head++;
+    byte result = code.readByte(pc);
+    pc++;
     return result;
 }
 
 void Bytecode::resetHead() {
-    head = 0;
+    pc = 0;
 }
 void Bytecode::setHead(uint pos) {
     if(pos >= code.size())
         throw ByteOutOfRangeException(pos, code.size() - 1);
-    head = pos;
+    pc = pos;
 }
 void Bytecode::stepBack(uint amount) {
-    // head is a uint, so subtracting to below 0 will certainly have it above our bytecode size
-    if(head - amount >= code.size())
-        throw ByteOutOfRangeException(head - amount, code.size() - 1);
-    head -= amount;
+    // pc is a uint, so subtracting to below 0 will certainly have it above our bytecode size
+    if(pc - amount >= code.size())
+        throw ByteOutOfRangeException(pc - amount, code.size() - 1);
+    pc -= amount;
 }
 void Bytecode::stepForward(uint amount) {
-    if(head + amount >= code.size())
-        throw ByteOutOfRangeException(head + amount, code.size() - 1);
-    head += amount;
+    if(pc + amount >= code.size())
+        throw ByteOutOfRangeException(pc + amount, code.size() - 1);
+    pc += amount;
 }

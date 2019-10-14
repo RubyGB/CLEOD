@@ -19,11 +19,27 @@ typedef uint64_t cluint;
 // Require double to be in IEC60559 format -- note that this also forces it to be 64 bits.
 static_assert(std::numeric_limits<double>::is_iec559, "CLEOD requires double to be in IEC60559 format to compile.");
 
+//  Prefix operators compile their arguments first, then themselves (i.e.: print 0 becomes LITERAL 0 PRINT)
+//  Infix operators compile their second argument first, taking advantage of the fact that their first argument was
+//      compiled as a prefix operator. For example:
+//      2 + 3; becomes LITERAL 2 ( + 3) becomes LITERAL 2 LITERAL 3 ADD
 enum class Opcode : byte {
-    OP_PRINT        // 2-operand. 1 byte for data type, followed by data. (data can be multiple widths)
+    //  prefix operators:
+    LITERAL,
+    PRINT,
+    NEGATE,
+    //  infix operators:
+    ADD,
+    SUBTRACT,
+    MULTIPLY,
+    DIVIDE,
 };
 
-// Error class for when user tries to read data and hits "eof" for the bytecode
+enum class DataType : byte {
+    INT = 0, UINT, BYTE, DOUBLE, BOOL, STRING, OPCODE, VAR
+};
+
+// Error class for when user tries to read data and hits eof for the bytestream/bytecode
 class ByteOutOfRangeException {
 private:
     uint where;
@@ -67,9 +83,12 @@ public:
     void writeString(std::string val);
     Opcode readOpcode(uint pos) const;
     void writeOpcode(Opcode val);
+    DataType readDataType(uint pos) const;
+    void writeDataType(DataType val);
 
     byte operator [](uint i) const;
     byte &operator [](uint i);
+    void operator <<(byte b);
     uint size() const;
 };
 
@@ -77,7 +96,8 @@ public:
 class Bytecode {
 private:
     ByteStream code;
-    uint head = 0;
+    //  program counter
+    uint pc = 0;
 public:
     Bytecode(ByteStream code);
 

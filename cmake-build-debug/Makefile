@@ -122,6 +122,33 @@ CLEOD/fast:
 	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/build
 .PHONY : CLEOD/fast
 
+Backend/VirtualMachine.obj: Backend/VirtualMachine.cpp.obj
+
+.PHONY : Backend/VirtualMachine.obj
+
+# target to build an object file
+Backend/VirtualMachine.cpp.obj:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/Backend/VirtualMachine.cpp.obj
+.PHONY : Backend/VirtualMachine.cpp.obj
+
+Backend/VirtualMachine.i: Backend/VirtualMachine.cpp.i
+
+.PHONY : Backend/VirtualMachine.i
+
+# target to preprocess a source file
+Backend/VirtualMachine.cpp.i:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/Backend/VirtualMachine.cpp.i
+.PHONY : Backend/VirtualMachine.cpp.i
+
+Backend/VirtualMachine.s: Backend/VirtualMachine.cpp.s
+
+.PHONY : Backend/VirtualMachine.s
+
+# target to generate assembly for a file
+Backend/VirtualMachine.cpp.s:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/Backend/VirtualMachine.cpp.s
+.PHONY : Backend/VirtualMachine.cpp.s
+
 Frontend/Scanner.obj: Frontend/Scanner.cpp.obj
 
 .PHONY : Frontend/Scanner.obj
@@ -203,6 +230,33 @@ MiddleEnd/Bytecode.cpp.s:
 	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Bytecode.cpp.s
 .PHONY : MiddleEnd/Bytecode.cpp.s
 
+MiddleEnd/Compiler.obj: MiddleEnd/Compiler.cpp.obj
+
+.PHONY : MiddleEnd/Compiler.obj
+
+# target to build an object file
+MiddleEnd/Compiler.cpp.obj:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Compiler.cpp.obj
+.PHONY : MiddleEnd/Compiler.cpp.obj
+
+MiddleEnd/Compiler.i: MiddleEnd/Compiler.cpp.i
+
+.PHONY : MiddleEnd/Compiler.i
+
+# target to preprocess a source file
+MiddleEnd/Compiler.cpp.i:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Compiler.cpp.i
+.PHONY : MiddleEnd/Compiler.cpp.i
+
+MiddleEnd/Compiler.s: MiddleEnd/Compiler.cpp.s
+
+.PHONY : MiddleEnd/Compiler.s
+
+# target to generate assembly for a file
+MiddleEnd/Compiler.cpp.s:
+	$(MAKE) -f CMakeFiles\CLEOD.dir\build.make CMakeFiles/CLEOD.dir/MiddleEnd/Compiler.cpp.s
+.PHONY : MiddleEnd/Compiler.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -239,6 +293,9 @@ help:
 	@echo ... CLEOD
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... Backend/VirtualMachine.obj
+	@echo ... Backend/VirtualMachine.i
+	@echo ... Backend/VirtualMachine.s
 	@echo ... Frontend/Scanner.obj
 	@echo ... Frontend/Scanner.i
 	@echo ... Frontend/Scanner.s
@@ -248,6 +305,9 @@ help:
 	@echo ... MiddleEnd/Bytecode.obj
 	@echo ... MiddleEnd/Bytecode.i
 	@echo ... MiddleEnd/Bytecode.s
+	@echo ... MiddleEnd/Compiler.obj
+	@echo ... MiddleEnd/Compiler.i
+	@echo ... MiddleEnd/Compiler.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

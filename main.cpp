@@ -43,16 +43,19 @@ int main() {
     std::cout << "Result: " << lbs.readString(0) << std::endl;
     std::cout << "Unsurprising behaviour, since most bytes in a clint are empty -> null character." << std::endl;
 
+    std::cout << "Testing << and [] operators for ByteStream..." << std::endl;
+    ByteStream optestStream;
+    optestStream << 240;
+    std::cout << "240 is: " << std::to_string(optestStream[0]) << std::endl;
+
     std::cout << "Testing bytecode class..." << std::endl;
     ByteStream code;
-    code.writeOpcode(Opcode::OP_PRINT);
-    code.writeByte(0); // type 0 -> integer
-    code.writeInt(7401586); // value to print
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::INT);
+    code.writeInt(7401586);
+    code.writeOpcode(Opcode::PRINT);
     Bytecode bc(code);
-    if(bc.nextOpcode() == Opcode::OP_PRINT) {
-        if (bc.nextByte() == 0)
-            std::cout << "Wow, this is an int: " << bc.nextInt() << std::endl;
-    }
-    // In practice, this is how we would parse bytecode
+    //  here VirtualMachine would push Data with the int converted to bytes via Data.data.writeInt(7401586)
+    //  Then PRINT would consume the top value on the stack, check its DataType and print it out.
     return 0;
 }
