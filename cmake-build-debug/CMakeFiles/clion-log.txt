@@ -1,4 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2019.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=C:/MinGW/bin/g++.exe -G "CodeBlocks - MinGW Makefiles" C:\Users\jonwi\Desktop\CLEOD
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/jonwi/Desktop/CLEOD/cmake-build-debug
