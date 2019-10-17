@@ -41,6 +41,7 @@ typedef std::unordered_map<TokenType, PrattRule> PrattTable;
 class Compiler {
 private:
     std::vector<Token> tokens;
+    std::vector<Token>::const_iterator current;
     ByteStream code;
 
     void expression();
