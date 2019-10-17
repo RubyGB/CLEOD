@@ -35,6 +35,11 @@ enum class TokenType {
 
 struct Token {
     TokenType type;
+  
+    // thought that these 2 might be helpful later on
+  	//String lexeme;
+  	//int line;
+  
     //  data is just the string literal. for an identifier token this might be "variableName", for a double literal
     //      it might be "-2.5", etc. this string will be parsed when necessary while compiling to bytecode.
     std::string data;
