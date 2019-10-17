@@ -48,6 +48,7 @@ private:
     void unary();
     void binary();
     void integer();
+    void floating();
 
     /*
      * The almighty beast that resides at the heart of our compiler
@@ -74,7 +75,7 @@ private:
             {TokenType::LESS_EQUAL,     {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_IDENTIFIER, {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_INTEGER,    {&Compiler::integer, nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_FLOATING,   {nullptr, nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_FLOATING,   {&Compiler::floating, nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_STRING,     {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::AND,            {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::OR,             {nullptr, nullptr, Precedence::PREC_NONE}},
