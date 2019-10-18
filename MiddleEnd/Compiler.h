@@ -11,12 +11,15 @@
 struct CompilationError {
     Token t;
     std::string msg;
+
+    friend std::ostream &operator <<(std::ostream &output, const CompilationError &error);
 };
 
 class CompilationException {
 private:
     std::vector<CompilationError> errors;
 public:
+    CompilationException(std::vector<CompilationError> errs);
     std::string what() const;
 };
 
@@ -52,17 +55,22 @@ private:
     std::vector<Token>::const_iterator current;
     std::vector<Token>::const_iterator previous;
 
+    //  The entire job of Compiler is to fill this up, and return a Bytecode(code). Many functions will be accessing it.
     ByteStream code;
 
+    //  If we encounter any error tokens or unexpected tokens (e.g. no closing RIGHT_PAREN after a LEFT_PAREN,
+    //      then we push them in here through addErrorAt(). If this is nonempty when we finish compiling,
+    //      we throw a CompilationException(errors) for the calling code to catch in a try/catch.
     std::vector<CompilationError> errors;
 
-    // Advances the previous/current Token iterators, skipping any error tokens.
+    //  Advances the previous/current Token iterators, skipping any error tokens.
     void advance();
 
-    // Confirms whether the current token is as expected or not, and if so, calls advance().
+    //  Confirms whether the current token is as expected or not, and if so, calls advance(). If not,
+    //      makes a call to addErrorAt().
     void consume(TokenType match, std::string onFailMessage);
 
-    // Add errors to errors vector. If this is nonempty when compile completes we throw a CompilationException.
+    //  Add errors to errors vector. If this is nonempty when compile completes we throw a CompilationException.
     void addErrorAt(const Token &where, std::string what);
 
     void expression();
@@ -127,7 +135,7 @@ private:
 public:
     Compiler(std::vector<Token> tokens);
 
-    //  May throw CompilationException.
+    //  May throw CompilationException when called. Make sure to try/catch!
     Bytecode compile();
 };
 

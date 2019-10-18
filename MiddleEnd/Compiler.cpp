@@ -2,7 +2,25 @@
 // Created by jonwi on 10/14/2019.
 //
 
+#include <iostream>
+#include <sstream>
+
 #include "Compiler.h"
+
+std::ostream& operator<<(std::ostream &output, const CompilationError &error) {
+    output << "Compilation error at " << error.t << " : " << error.msg;
+    return output;
+}
+
+CompilationException::CompilationException(std::vector<CompilationError> errs) : errors(errs) {}
+std::string CompilationException::what() const {
+    std::string report = std::to_string(errors.size()) + " errors were found:\n";
+    std::ostringstream errorstream;
+    for(const CompilationError &err : errors)
+        errorstream << err << std::endl;
+    report += errorstream.str();
+    return report;
+}
 
 Compiler::Compiler(std::vector<Token> tokens) : tokens(tokens) {
     current = tokens.begin();
@@ -12,7 +30,7 @@ Bytecode Compiler::compile() {
     advance();
     expression();
     if(errors.size() > 0)
-        throw CompilationException();
+        throw CompilationException(errors);
     return Bytecode(code);
 }
 
@@ -37,15 +55,7 @@ void Compiler::consume(TokenType match, std::string onFailMessage) {
 }
 
 void Compiler::addErrorAt(const Token &where, std::string what) {
-    std::string err = "[line UUNIMPLEMENTED] Error";
-    if(where.type == TokenType::EF)
-        err += " at end";
-    else if(where.type == TokenType::ERR)
-        ; // nothing
-    else
-        err += " at token: " + std::to_string(static_cast<byte>(where.type)) + " where data is: " + where.data;
-
-    err += "\n";
+    errors.push_back({where, what});
 }
 
 void Compiler::expression() {

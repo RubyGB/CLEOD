@@ -2,6 +2,7 @@
 
 #include "MiddleEnd/Bytecode.h"
 #include "Frontend/Token.h"
+#include "MiddleEnd/Compiler.h"
 
 int main() {
     std::cout << "Basic tests on writing/reading literal data..." << std::endl;
@@ -52,6 +53,15 @@ int main() {
     std::cout << "Testing Token << operator..." << std::endl;
     Token testToken = {TokenType::LIT_INTEGER, "540", 0};
     std::cout << testToken << std::endl;
+
+    std::cout << "Testing CompilationError << operator..." << std::endl;
+    CompilationError testCompError = {testToken, "Something bad happened!"};
+    std::cout << testCompError << std::endl;
+
+    std::cout << "Testing CompilationException what() function..." << std::endl;
+    Token testTokenTwo = {TokenType::GREATER, ">", 0};
+    CompilationException compExceptionTest({{testToken, "One bad thing happened!"},{testTokenTwo, "Another bad thing happened!"}});
+    std::cout << compExceptionTest.what();
 
     std::cout << "Testing bytecode class..." << std::endl;
     ByteStream code;
