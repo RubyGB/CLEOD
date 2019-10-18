@@ -8,9 +8,14 @@
 #include "../Frontend/Token.h"
 #include "Bytecode.h"
 
+struct CompilationError {
+    Token t;
+    std::string msg;
+};
+
 class CompilationException {
 private:
-
+    std::vector<CompilationError> errors;
 public:
     std::string what() const;
 };
@@ -40,9 +45,25 @@ typedef std::unordered_map<TokenType, PrattRule> PrattTable;
 
 class Compiler {
 private:
+    //  Note we bother storing iterators in case the lexer generates error tokens - we "skip" these, i.e.:
+    //      If our tokens are LIT_INTEGER | ERR | ERR | LIT_FLOATING,
+    //      then previous will point to LIT_INTEGER and current will point to LIT_FLOATING
     std::vector<Token> tokens;
     std::vector<Token>::const_iterator current;
+    std::vector<Token>::const_iterator previous;
+
     ByteStream code;
+
+    std::vector<CompilationError> errors;
+
+    // Advances the previous/current Token iterators, skipping any error tokens.
+    void advance();
+
+    // Confirms whether the current token is as expected or not, and if so, calls advance().
+    bool consume(TokenType match);
+
+    // Add errors to errors vector. If this is nonempty when compile completes we throw a CompilationException.
+    void addErrorAt(const Token &where, std::string what);
 
     void expression();
     void grouping();
@@ -105,8 +126,9 @@ private:
     };
 public:
     Compiler(std::vector<Token> tokens);
+
     //  May throw CompilationException.
-    Bytecode compile() const;
+    Bytecode compile();
 };
 
 
