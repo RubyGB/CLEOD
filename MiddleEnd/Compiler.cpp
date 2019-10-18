@@ -24,6 +24,7 @@ std::string CompilationException::what() const {
 
 Compiler::Compiler(std::vector<Token> tokens) : tokens(tokens) {
     current = tokens.begin();
+    previous = tokens.begin();
 }
 Bytecode Compiler::compile() {
     //  do some stuff...
@@ -41,7 +42,7 @@ void Compiler::advance() {
         ++current;
         if(current->type != TokenType::ERR) break;
 
-        // TODO: want much better error reporting here.
+        // TODO: want much better error reporting here?
         addErrorAt(*current, "Error token found in advance() call.");
     }
 }
@@ -74,7 +75,10 @@ void Compiler::binary() {
 
 }
 void Compiler::integer() {
-
+    //  Dunno if this is right but it's the rough idea.
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::INT);
+    code.writeInt(std::stoi(previous->data));
 }
 void Compiler::floating() {
 
