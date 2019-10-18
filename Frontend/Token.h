@@ -39,6 +39,7 @@ struct Token {
     // thought that these 2 might be helpful later on
   	//String lexeme;
   	//int line;
+  	//  you'd be correct! see below + the << operator
   
     //  data is just the string literal. for an identifier token this might be "variableName", for a double literal
     //      it might be "-2.5", etc. this string will be parsed when necessary while compiling to bytecode.
@@ -46,7 +47,7 @@ struct Token {
     //  line number. used for error reporting
     uint64_t line;
 
-
+    friend std::ostream &operator <<(std::ostream &output, const Token &token);
 };
 
 
