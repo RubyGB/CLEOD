@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "MiddleEnd/Bytecode.h"
+#include "Frontend/Token.h"
 
 int main() {
     std::cout << "Basic tests on writing/reading literal data..." << std::endl;
@@ -47,6 +48,10 @@ int main() {
     ByteStream optestStream;
     optestStream << 240;
     std::cout << "240 is: " << std::to_string(optestStream[0]) << std::endl;
+
+    std::cout << "Testing Token << operator..." << std::endl;
+    Token testToken = {TokenType::LIT_INTEGER, "540", 0};
+    std::cout << testToken << std::endl;
 
     std::cout << "Testing bytecode class..." << std::endl;
     ByteStream code;

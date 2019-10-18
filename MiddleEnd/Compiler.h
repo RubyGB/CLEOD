@@ -60,7 +60,7 @@ private:
     void advance();
 
     // Confirms whether the current token is as expected or not, and if so, calls advance().
-    bool consume(TokenType match);
+    void consume(TokenType match, std::string onFailMessage);
 
     // Add errors to errors vector. If this is nonempty when compile completes we throw a CompilationException.
     void addErrorAt(const Token &where, std::string what);

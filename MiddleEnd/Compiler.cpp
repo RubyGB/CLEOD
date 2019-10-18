@@ -28,12 +28,12 @@ void Compiler::advance() {
     }
 }
 
-bool Compiler::consume(TokenType match) {
+void Compiler::consume(TokenType match, std::string onFailMessage) {
     if(current->type == match) {
         advance();
-        return true;
+        return;
     }
-    return false;
+    addErrorAt(*current, onFailMessage);
 }
 
 void Compiler::addErrorAt(const Token &where, std::string what) {
@@ -45,7 +45,7 @@ void Compiler::addErrorAt(const Token &where, std::string what) {
     else
         err += " at token: " + std::to_string(static_cast<byte>(where.type)) + " where data is: " + where.data;
 
-    err += "\n"
+    err += "\n";
 }
 
 void Compiler::expression() {
@@ -55,4 +55,17 @@ void Compiler::expression() {
 void Compiler::grouping() {
     expression();
     consume(TokenType::RIGHT_PAREN, "Expect \")\" after expression.");
+}
+
+void Compiler::unary() {
+
+}
+void Compiler::binary() {
+
+}
+void Compiler::integer() {
+
+}
+void Compiler::floating() {
+
 }

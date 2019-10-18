@@ -8,7 +8,7 @@
 #include "../MiddleEnd/Bytecode.h"
 
 std::ostream &operator <<(std::ostream &output, const Token &token) {
-    output  << "TOKEN | TYPE [" << std::to_string(static_cast<byte>(token.type))
+    output  << "TOKEN | TYPE [" << TOKEN_TYPE_NAMES.at(token.type)
             << "] | LEXEME [" << token.data << "] | LINE [" << token.line << "]";
     return output;
 }

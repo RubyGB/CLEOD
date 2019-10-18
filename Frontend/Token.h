@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 enum class TokenType {
     // Single character:
@@ -50,5 +51,38 @@ struct Token {
     friend std::ostream &operator <<(std::ostream &output, const Token &token);
 };
 
+//  This map is just a helper for printing enum names from enums. C++ really should have something built in for this...
+const std::unordered_map<TokenType, std::string> TOKEN_TYPE_NAMES = {
+        {TokenType::LEFT_PAREN, "LEFT_PAREN"}, {TokenType::RIGHT_PAREN, "RIGHT_PAREN"},
+        {TokenType::LEFT_BRACE, "LEFT_BRACE"}, {TokenType::RIGHT_BRACE, "RIGHT_BRACE"},
+        {TokenType::COMMA, "COMMA"}, {TokenType::DOT, "DOT"},
+        {TokenType::MINUS, "MINUS"}, {TokenType::PLUS, "PLUS"},
+        {TokenType::SEMICOLON, "SEMICOLON"},
+        {TokenType::SLASH, "SLASH"}, {TokenType::STAR, "STAR"},
+
+        {TokenType::BANG, "BANG"}, {TokenType::BANG_EQUAL, "BANG_EQUAL"},
+        {TokenType::EQUAL, "EQUAL"}, {TokenType::EQUAL_EQUAL, "EQUAL_EQUAL"},
+        {TokenType::GREATER, "GREATER"}, {TokenType::GREATER_EQUAL, "GREATER_EQUAL"},
+        {TokenType::LESS, "LESS"}, {TokenType::LESS_EQUAL, "LESS_EQUAL"},
+
+        {TokenType::LIT_IDENTIFIER, "LIT_IDENTIFIER"},
+        {TokenType::LIT_STRING, "LIT_STRING"},
+        {TokenType::LIT_INTEGER, "LIT_INTEGER"},
+        {TokenType::LIT_FLOATING, "LIT_FLOATING"},
+
+        {TokenType::IF, "IF"}, {TokenType::ELSE, "ELSE"},
+        {TokenType::FOR, "FOR"}, {TokenType::WHILE, "WHILE"},
+        {TokenType::SWITCH, "SWITCH"}, {TokenType::CASE, "CASE"},
+        {TokenType::AND, "AND"}, {TokenType::OR, "OR"},
+        {TokenType::TRUE, "TRUE"}, {TokenType::FALSE, "FALSE"},
+        {TokenType::RETURN, "RETURN"},
+
+        {TokenType::VAR, "VAR"}, {TokenType::VOID, "VOID"},
+        {TokenType::BOOL, "BOOL"}, {TokenType::BYTE, "BYTE"},
+        {TokenType::INT, "INT"}, {TokenType::UINT, "UINT"},
+        {TokenType::FLOAT, "FLOAT"}, {TokenType::STRING, "STRING"},
+
+        {TokenType::PRINT, "PRINT"}, {TokenType::ERR, "ERR"}, {TokenType::EF, "EF"}
+};
 
 #endif //CLEOD_TOKEN_H

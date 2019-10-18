@@ -14,5 +14,4 @@ SEMICOLON
 EF
 
 // notes for converting to bytecode:
-// As you parse through the file, for each literal you find (or in the case of a literal expression, the final value
-// of the reduced expression), push it to the literals vector and create an index entry in the chunk's indexMap.
+// this was out of date, sorry
