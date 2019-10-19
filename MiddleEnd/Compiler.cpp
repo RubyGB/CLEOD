@@ -81,5 +81,7 @@ void Compiler::integer() {
     code.writeInt(std::stoi(previous->data));
 }
 void Compiler::floating() {
-
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::DOUBLE);
+    code.writeDouble(std::stoi(previous->data));
 }
