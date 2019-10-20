@@ -60,7 +60,7 @@ void Compiler::addErrorAt(const Token &where, std::string what) {
 }
 
 void Compiler::expression() {
-
+    parseWithPrecedence(Precedence::PREC_ASSIGNMENT);
 }
 
 void Compiler::grouping() {
@@ -69,7 +69,16 @@ void Compiler::grouping() {
 }
 
 void Compiler::unary() {
-
+    TokenType operatorType = parser.previous.type;
+    // compile the operand
+    parseWithPrecedence(Precedence::PREC_UNARY);
+    // Emit the operator instruction
+    switch (operatorType){
+        case TOKEN_MINUS: code.writeOpcode(Opcode::NEGATE);
+        break;
+        default:
+            return;
+    }
 }
 void Compiler::binary() {
 
@@ -83,5 +92,5 @@ void Compiler::integer() {
 void Compiler::floating() {
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::DOUBLE);
-    code.writeDouble(std::stoi(previous->data));
+    code.writeDouble(std::stod(previous->data));
 }
