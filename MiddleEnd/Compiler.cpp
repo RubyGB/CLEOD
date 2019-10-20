@@ -59,6 +59,8 @@ void Compiler::addErrorAt(const Token &where, std::string what) {
     errors.push_back({where, what});
 }
 
+// implement parseWithPrecdence
+
 void Compiler::expression() {
     parseWithPrecedence(Precedence::PREC_ASSIGNMENT);
 }
@@ -69,22 +71,33 @@ void Compiler::grouping() {
 }
 
 void Compiler::unary() {
-    TokenType operatorType = parser.previous.type;
+    TokenType operatorType = previous->type;
     // compile the operand
     parseWithPrecedence(Precedence::PREC_UNARY);
     // Emit the operator instruction
     switch (operatorType){
-        case TOKEN_MINUS: code.writeOpcode(Opcode::NEGATE);
+        case TokenType::MINUS : code.writeOpcode(Opcode::NEGATE);
         break;
         default:
             return;
     }
 }
 void Compiler::binary() {
-
+    // Remember the operator
+    TokenType operatorType = previous->type;
+    // compile right opperand
+    ParseRule* rule = getRule(operatorType);
+    parseWithPrecedence(CLEOD_PRATT_TABLE[operatorType].prec->precedence + 1);
+    switch (operatorType){
+        case TokenType::PLUS:    code.writeOpcode(Opcode::ADD);
+        case TokenType::MINUS:   code.writeOpcode(Opcode::SUBTRACT); break;
+        case TokenType::STAR:    code.writeOpcode(Opcode::MULTIPLY);
+        case TokenType::SLASH:   code.writeOpcode(Opcode::DIVIDE);
+        default:
+            return;
+    }
 }
 void Compiler::integer() {
-    //  Dunno if this is right but it's the rough idea.
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::INT);
     code.writeInt(std::stoi(previous->data));
