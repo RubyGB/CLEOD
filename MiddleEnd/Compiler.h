@@ -77,13 +77,23 @@ private:
     //  Add errors to errors vector. If this is nonempty when compile completes we throw a CompilationException.
     void addErrorAt(const Token &where, std::string what);
 
+    bool match(TokenType type);
+
+    void declaration();
+    void statement();
+
+    void printStatement();
+    void expressionStatement();
+
     void expression();
     void grouping();
     void unary();
     void binary();
     void integer();
     void floating();
+    void print();
 
+    PrattRule getRule(TokenType type) const;
     /*
      * The almighty beast that resides at the heart of our compiler
      */

@@ -10,9 +10,42 @@
  * If we have CATCH_CONFIG_MAIN defined, then our program runs tests only.
  * Otherwise, it uses our defined main function.
  */
-#define CATCH_CONFIG_MAIN
+//#define CATCH_CONFIG_MAIN
 #ifndef CATCH_CONFIG_MAIN
 int main() {
+    std::vector<Token> mockTokens = {
+            {TokenType::PRINT, "print", 1},
+            {TokenType::LIT_INTEGER, "0", 1},
+            {TokenType::SEMICOLON, ";", 1},
+            {TokenType::PRINT, "print", 2},
+            {TokenType::LEFT_PAREN, "(", 2},
+            {TokenType::LIT_INTEGER, "2", 2},
+            {TokenType::MINUS, "-", 2},
+            {TokenType::LIT_INTEGER, "6", 2},
+            {TokenType::RIGHT_PAREN, ")", 2},
+            {TokenType::SLASH, "/", 2},
+            {TokenType::LIT_FLOATING, "2.4", 2},
+            {TokenType::SEMICOLON, ";", 2},
+            {TokenType::EF, "", 2}
+    };
+
+    Compiler c(mockTokens);
+    try {
+        Bytecode bc = c.compile();
+        try {
+            while(true) {
+                std::cout << std::to_string(bc.nextByte()) << " ";
+            }
+        }
+        catch(ByteOutOfRangeException &e) {
+            std::cout << std::endl;
+            std::cout << e.what() << std::endl;
+        }
+    }
+    catch(CompilationException &e) {
+        std::cout << e.what() << std::endl;
+    }
+
     return 0;
 }
 #endif

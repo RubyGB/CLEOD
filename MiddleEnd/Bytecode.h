@@ -33,6 +33,9 @@ enum class Opcode : byte {
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
+
+    //  For statements:
+    POP,
 };
 
 enum class DataType : byte {
