@@ -13,7 +13,9 @@ std::vector<Token> Scanner::scanTokens() {
     return tokens;
 }
 Scanner::Scanner(const std::string &sourceFileName) {
-    source = sourceFileName;
+    src = std::ifstream(sourceFileName);
+    buffer << src.rdbuf();
+    source = buffer.str();
 }
 
 // Helper functions for scanTokens()
@@ -35,6 +37,7 @@ void Scanner::scanToken() {
         case ';': addToken(TokenType::SEMICOLON); break;
         case '/': addToken(TokenType::SLASH); break;
         case '*': addToken(TokenType::STAR); break;
+        case '\n': line++; break;
     }
 }
 

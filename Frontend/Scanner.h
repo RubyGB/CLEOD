@@ -7,6 +7,7 @@
 
 #include <string>
 #include <fstream>
+#include <sstream>
 
 #include "Token.h"
 
@@ -15,7 +16,7 @@ private:
     // Private variables
     int start = 0;
     int current = 0;
-    uint64_t line = 0;
+    uint64_t line = 1;
     char c;
     std::string text;
     //  scan() should fill this up and return a copy of it.
@@ -24,6 +25,7 @@ private:
 
     //  Constructor should initialize this.
     std::ifstream src;
+    std::stringstream buffer;
     bool isAtEnd();
     void scanToken();
     char advance();
@@ -31,7 +33,7 @@ private:
 
 public:
     // Constructor for Scanner class
-    Scanner(const std::string &sourceFileName);
+    explicit Scanner(const std::string &sourceFileName);
     std::vector<Token> scanTokens();
 
 };

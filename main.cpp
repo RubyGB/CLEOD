@@ -19,6 +19,8 @@ int main() {
 
 #ifdef CATCH_CONFIG_MAIN
 #include "Libraries/catch.hpp"
+#include "Frontend/Scanner.h"
+
 TEST_CASE("read/write for ByteStream to all literal types works", "[ByteStream]") {
     //  All tests are starting from a clean ByteStream
     ByteStream bs;
@@ -38,5 +40,12 @@ TEST_CASE("read/write for ByteStream to all literal types works", "[ByteStream]"
         bs.writeInt(std::numeric_limits<int>::max());
         REQUIRE(bs.readInt(0) == std::numeric_limits<int>::max());
     }
+}
+
+TEST_CASE("testing scanner class for single tokens", "[Scanner]"){
+    Scanner spanner("Cleod1.cleod");
+    std::vector<Token> bector = spanner.scanTokens();
+    for(int i=0; i<bector.size(); i++)
+        std::cout << bector.at(i) << ' ';
 }
 #endif
