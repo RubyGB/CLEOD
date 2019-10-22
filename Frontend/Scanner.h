@@ -17,6 +17,7 @@ private:
     int current = 0;
     uint64_t line = 0;
     char c;
+    std::string text;
     //  scan() should fill this up and return a copy of it.
     std::string source;
     std::vector<Token> tokens;
@@ -27,7 +28,6 @@ private:
     void scanToken();
     char advance();
     void addToken(TokenType type);
-    void addToken(TokenType type, std::string data);
 
 public:
     // Constructor for Scanner class
