@@ -37,6 +37,8 @@ enum class Precedence {
     PREC_PRIMARY
 };
 
+Precedence nextHighest(Precedence prec);
+
 class Compiler;
 typedef void (Compiler::*ParseRule)(); // ParseRule is a void function with no arguments, member of Compiler
 struct PrattRule {
@@ -65,6 +67,8 @@ private:
 
     //  Advances the previous/current Token iterators, skipping any error tokens.
     void advance();
+
+    void parseWithPrecedence(Precedence prec);
 
     //  Confirms whether the current token is as expected or not, and if so, calls advance(). If not,
     //      makes a call to addErrorAt().
