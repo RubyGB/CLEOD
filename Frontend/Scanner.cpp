@@ -68,3 +68,9 @@ void Scanner::addToken(TokenType type) {
     tokens.push_back({type, text, line});
 }
 
+bool Scanner::match(char c){
+    if (isAtEnd()) {return false;}
+    if (source.at(current) != c) {return false;} // charAt() is at() -> correct?
+    ++current;
+    return true;
+}
