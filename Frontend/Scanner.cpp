@@ -54,6 +54,9 @@ void Scanner::scanToken() {
         case '>':
             if (match('=')){addToken(TokenType::GREATER_EQUAL);}
             else {addToken(TokenType::GREATER);}
+        // comment case - long lexemes
+        case '#':
+            while (peek() != '\n' && !isAtEnd()){advance();} break;
     }
 }
 
@@ -73,4 +76,9 @@ bool Scanner::match(char c){
     if (source.at(current) != c) {return false;} // charAt() is at() -> correct?
     ++current;
     return true;
+}
+
+char Scanner::peek(){
+    if (isAtEnd()) return '\0';
+    return source.at(current);
 }
