@@ -10,7 +10,7 @@
  * If we have CATCH_CONFIG_MAIN defined, then our program runs tests only.
  * Otherwise, it uses our defined main function.
  */
-//#define CATCH_CONFIG_MAIN
+#define CATCH_CONFIG_MAIN
 #ifndef CATCH_CONFIG_MAIN
 int main() {
     std::vector<Token> mockTokens = {

@@ -14,24 +14,22 @@
 class Scanner {
 private:
     // Private variables
-    //
     int start = 0;
     int current = 0;
     uint64_t line = 1;
     char c; // character in the source file
-    std::string text;
+
+    std::string text; // the substring that is recognized as token = token data
     std::string source; // copy of the source file as string
     std::vector<Token> tokens; // vector of tokens
-
-    //  Constructor should initialize this.
-    std::ifstream src;
-    std::stringstream buffer;
+    std::ifstream src; //  Constructor should initialize this.
+    std::stringstream buffer; // buffer that holds the contents of file
 
     // Helper functions:
     bool isAtEnd();
-    void scanToken();
-    char advance();
-    void addToken(TokenType type);
+    void scanToken(); // maps character to appropriate TokenType
+    char advance(); // advancing character by character
+    void addToken(TokenType type); // adds token to token vector
 
 public:
     // Constructor for Scanner class

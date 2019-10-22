@@ -4,6 +4,13 @@
 
 #include "Scanner.h"
 
+Scanner::Scanner(const std::string &sourceFileName) {
+    c = '0';
+    src = std::ifstream(sourceFileName);
+    buffer << src.rdbuf();
+    source = buffer.str(); // store file content as a string
+}
+
 std::vector<Token> Scanner::scanTokens() {
     while(!isAtEnd()){
         start = current;
@@ -11,11 +18,6 @@ std::vector<Token> Scanner::scanTokens() {
     }
     tokens.push_back({TokenType::EF,  "", line});
     return tokens;
-}
-Scanner::Scanner(const std::string &sourceFileName) {
-    src = std::ifstream(sourceFileName);
-    buffer << src.rdbuf();
-    source = buffer.str();
 }
 
 // Helper functions for scanTokens()
@@ -41,7 +43,7 @@ void Scanner::scanToken() {
     }
 }
 
-// Helper function for scanToken()
+// Helper functions for scanToken()
 char Scanner::advance() {
     current++;
     return source.at(current - 1);
