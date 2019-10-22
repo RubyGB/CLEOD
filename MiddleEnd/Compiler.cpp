@@ -22,6 +22,14 @@ std::string CompilationException::what() const {
     return report;
 }
 
+Precedence nextHighest(Precedence prec) {
+    int next = static_cast<int>(prec) + 1;
+    if(next >= static_cast<int>(Precedence::PREC_PRIMARY))
+        return Precedence::PREC_PRIMARY;
+    else
+        return static_cast<Precedence>(next);
+}
+
 Compiler::Compiler(std::vector<Token> tokens) : tokens(tokens) {
     current = tokens.begin();
     previous = tokens.begin();
@@ -33,6 +41,10 @@ Bytecode Compiler::compile() {
     if(errors.size() > 0)
         throw CompilationException(errors);
     return Bytecode(code);
+}
+
+void Compiler::parseWithPrecedence(Precedence prec) {
+    // TODO IMPLEMENT THIS
 }
 
 void Compiler::advance() {
@@ -59,8 +71,6 @@ void Compiler::addErrorAt(const Token &where, std::string what) {
     errors.push_back({where, what});
 }
 
-// implement parseWithPrecdence
-
 void Compiler::expression() {
     parseWithPrecedence(Precedence::PREC_ASSIGNMENT);
 }
@@ -86,8 +96,7 @@ void Compiler::binary() {
     // Remember the operator
     TokenType operatorType = previous->type;
     // compile right opperand
-    ParseRule* rule = getRule(operatorType);
-    parseWithPrecedence(CLEOD_PRATT_TABLE[operatorType].prec->precedence + 1);
+    parseWithPrecedence(nextHighest(CLEOD_PRATT_TABLE.at(operatorType).prec));
     switch (operatorType){
         case TokenType::PLUS:    code.writeOpcode(Opcode::ADD);
         case TokenType::MINUS:   code.writeOpcode(Opcode::SUBTRACT); break;
