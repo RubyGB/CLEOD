@@ -40,6 +40,20 @@ void Scanner::scanToken() {
         case '/': addToken(TokenType::SLASH); break;
         case '*': addToken(TokenType::STAR); break;
         case '\n': line++; break;
+        // match cases
+        case '!':
+            if (match('=')) {addToken(TokenType::BANG_EQUAL);}
+            else {addToken(TokenType::BANG);}
+            break;
+        case '=':
+            if (match('=')){addToken(TokenType::EQUAL_EQUAL);}
+            else {addToken(TokenType::EQUAL);}
+        case '<':
+            if (match('=')){addToken(TokenType::LESS_EQUAL);}
+            else {addToken(TokenType::LESS);}
+        case '>':
+            if (match('=')){addToken(TokenType::GREATER_EQUAL);}
+            else {addToken(TokenType::GREATER);}
     }
 }
 
