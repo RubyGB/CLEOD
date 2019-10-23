@@ -5,8 +5,10 @@
 #ifndef CLEOD_SCANNER_H
 #define CLEOD_SCANNER_H
 
-#include <string>
+
 #include <fstream>
+#include <sstream>
+#include <string.h>
 
 #include "Token.h"
 
@@ -15,23 +17,27 @@ private:
     // Private variables
     int start = 0;
     int current = 0;
-    uint64_t line = 0;
-    char c;
-    //  scan() should fill this up and return a copy of it.
-    std::string source;
-    std::vector<Token> tokens;
+    uint64_t line = 1;
+    char c; // character in the source file
 
-    //  Constructor should initialize this.
-    std::ifstream src;
+    std::string text; // the substring that is recognized as token = token data
+    std::string source; // copy of the source file as string
+    std::vector<Token> tokens; // vector of tokens
+    std::ifstream src; //  Constructor should initialize this.
+    std::stringstream buffer; // buffer that holds the contents of file
+
+    // Helper functions:
     bool isAtEnd();
-    void scanToken();
-    char advance();
-    void addToken(TokenType type);
-    void addToken(TokenType type, std::string data);
+    void scanToken(); // maps character to appropriate TokenType
+    char advance(); // advancing character by character
+    void addToken(TokenType type); // adds token to token vector
+    bool match(char c); // checks if next character is c
+    char peek();
+    void stringFunc();
 
 public:
     // Constructor for Scanner class
-    Scanner(const std::string &sourceFileName);
+    explicit Scanner(const std::string &sourceFileName);
     std::vector<Token> scanTokens();
 
 };
