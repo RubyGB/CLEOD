@@ -91,7 +91,6 @@ private:
     void binary();
     void integer();
     void floating();
-    void print();
 
     PrattRule getRule(TokenType type) const;
     /*

@@ -122,10 +122,35 @@ uint ByteStream::size() const {
     return bytes.size();
 }
 
+ByteStream::ByteStream() {}
+ByteStream::ByteStream(clint val) {
+    writeInt(val);
+}
+ByteStream::ByteStream(cluint val) {
+    writeUint(val);
+}
+ByteStream::ByteStream(byte val) {
+    writeByte(val);
+}
+ByteStream::ByteStream(double val) {
+    writeDouble(val);
+}
+ByteStream::ByteStream(bool val) {
+    writeBool(val);
+}
+ByteStream::ByteStream(std::string val) {
+    writeString(val);
+}
+
 
 Bytecode::Bytecode(ByteStream code) : code(code) {}
 Opcode Bytecode::nextOpcode() {
     Opcode result = code.readOpcode(pc);
+    pc++;
+    return result;
+}
+DataType Bytecode::nextDataType() {
+    DataType result = code.readDataType(pc);
     pc++;
     return result;
 }
@@ -158,4 +183,8 @@ void Bytecode::stepForward(uint amount) {
     if(pc + amount >= code.size())
         throw ByteOutOfRangeException(pc + amount, code.size() - 1);
     pc += amount;
+}
+
+bool Bytecode::atEnd() const {
+    return (pc >= code.size());
 }

@@ -93,6 +93,14 @@ public:
     byte &operator [](uint i);
     void operator <<(byte b);
     uint size() const;
+
+    ByteStream();
+    ByteStream(clint val);
+    ByteStream(cluint val);
+    ByteStream(byte val);
+    ByteStream(double val);
+    ByteStream(bool val);
+    ByteStream(std::string val);
 };
 
 //  Class containing byte streams and functionality to read and progress through bytecode properly
@@ -105,6 +113,7 @@ public:
     Bytecode(ByteStream code);
 
     Opcode nextOpcode();
+    DataType nextDataType();
     clint nextInt();
     cluint nextUint();
     byte nextByte();
@@ -116,6 +125,8 @@ public:
     void setHead(uint pos);
     void stepBack(uint amount);
     void stepForward(uint amount);
+
+    bool atEnd() const;
 };
 
 #endif //CLEOD_BYTECODE_H
