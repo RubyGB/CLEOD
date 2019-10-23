@@ -148,12 +148,7 @@ void Compiler::binary() {
             return;
     }
 }
-void Compiler::integer() {
-    code.writeOpcode(Opcode::LITERAL);
-    code.writeDataType(DataType::INT);
-    code.writeInt(std::stoi(previous->data));
-}
-void Compiler::floating() {
+void Compiler::number() {
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::DOUBLE);
     code.writeDouble(std::stod(previous->data));
