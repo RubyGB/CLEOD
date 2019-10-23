@@ -5,9 +5,10 @@
 #ifndef CLEOD_SCANNER_H
 #define CLEOD_SCANNER_H
 
-#include <string>
+
 #include <fstream>
 #include <sstream>
+#include <string.h>
 
 #include "Token.h"
 
@@ -32,6 +33,7 @@ private:
     void addToken(TokenType type); // adds token to token vector
     bool match(char c); // checks if next character is c
     char peek();
+    void stringFunc();
 
 public:
     // Constructor for Scanner class

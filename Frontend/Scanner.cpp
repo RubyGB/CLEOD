@@ -4,6 +4,7 @@
 
 #include "Scanner.h"
 
+
 Scanner::Scanner(const std::string &sourceFileName) {
     c = '0';
     src = std::ifstream(sourceFileName);
@@ -48,15 +49,26 @@ void Scanner::scanToken() {
         case '=':
             if (match('=')){addToken(TokenType::EQUAL_EQUAL);}
             else {addToken(TokenType::EQUAL);}
+            break;
         case '<':
             if (match('=')){addToken(TokenType::LESS_EQUAL);}
             else {addToken(TokenType::LESS);}
+            break;
         case '>':
             if (match('=')){addToken(TokenType::GREATER_EQUAL);}
             else {addToken(TokenType::GREATER);}
+            break;
         // comment case - long lexemes
         case '#':
             while (peek() != '\n' && !isAtEnd()){advance();} break;
+            break;
+        // '', /r /t
+        case ' ':
+        case '\r':
+        case '\t':
+            break;
+        // string literals
+        case '"': stringFunc(); break;
     }
 }
 
@@ -82,3 +94,19 @@ char Scanner::peek(){
     if (isAtEnd()) return '\0';
     return source.at(current);
 }
+
+void Scanner::stringFunc(){
+    while (peek() != '"' && !isAtEnd()){
+        if (peek() == '\n'){line++;}
+        advance();
+    }
+    if (isAtEnd()){
+        // need to throw error here
+        return;
+    }
+    // this is needed for closing "
+    advance();
+    std::string val = source.substr(start+1, current-1); // correct use of substr?
+    addToken(TokenType::STRING, val); // can't add val due to addToken implmentation
+}
+
