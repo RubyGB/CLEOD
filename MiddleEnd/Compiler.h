@@ -89,8 +89,7 @@ private:
     void grouping();
     void unary();
     void binary();
-    void integer();
-    void floating();
+    void number();
 
     PrattRule getRule(TokenType type) const;
     /*
@@ -112,19 +111,18 @@ private:
             {TokenType::BANG_EQUAL,     {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::EQUAL_EQUAL,    {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::EQUAL,          {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::GREATER,        {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::GREATER_EQUAL,  {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::LESS,           {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::LESS_EQUAL,     {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_IDENTIFIER, {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_INTEGER,    {&Compiler::integer, nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_FLOATING,   {&Compiler::floating, nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_STRING,     {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::AND,            {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::OR,             {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::IF,             {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::ELSE,           {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::FOR,            {nullptr, nullptr, Precedence::PREC_NONE}},
+            {TokenType::GREATER,        {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::GREATER_EQUAL,  {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LESS,           {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LESS_EQUAL,     {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_IDENTIFIER, {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_NUMBER,   {&Compiler::number,  nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_STRING,     {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::AND,            {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::OR,             {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::IF,             {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::ELSE,           {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::FOR,            {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::WHILE,          {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::SWITCH,         {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::CASE,           {nullptr, nullptr, Precedence::PREC_NONE}},

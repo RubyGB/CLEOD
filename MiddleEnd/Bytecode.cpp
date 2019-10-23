@@ -164,6 +164,11 @@ byte Bytecode::nextByte() {
     pc++;
     return result;
 }
+double Bytecode::nextDouble() {
+    double result = code.readDouble(pc);
+    pc += 8;
+    return result;
+}
 
 void Bytecode::resetHead() {
     pc = 0;

@@ -2,7 +2,7 @@
 #include "VirtualMachine.h"
 
 ExecutionException::ExecutionException(std::string reason) : reason(reason) {}
-const std::string &ExecutionException::what() const {
+std::string ExecutionException::what() const {
     return "CLEOD Virtual Machine encountered an error: " + reason;
 }
 
@@ -11,7 +11,7 @@ void VirtualMachine::execute() {
     while(!code.atEnd()) {
         switch(code.nextOpcode()) {
             case Opcode::LITERAL:
-                pushLiteral(code.nextDataType()); break;
+                pushNextLiteral(); break;
             case Opcode::PRINT:
                 print(); break;
             case Opcode::ADD:
@@ -22,6 +22,8 @@ void VirtualMachine::execute() {
                 multiply(); break;
             case Opcode::DIVIDE:
                 divide(); break;
+            default:
+                break;
         }
     }
 }
@@ -36,11 +38,9 @@ Data VirtualMachine::pop() {
     return d;
 }
 
-void VirtualMachine::pushLiteral(DataType dt) {
+void VirtualMachine::pushNextLiteral() {
+    DataType dt = code.nextDataType();
     switch(dt) {
-        case DataType::INT:
-            stack.push({dt, ByteStream(code.nextInt())});
-            break;
         case DataType::DOUBLE:
             stack.push({dt, ByteStream(code.nextDouble())});
             break;
@@ -52,8 +52,6 @@ void VirtualMachine::pushLiteral(DataType dt) {
 void VirtualMachine::print() {
     Data top = pop();
     switch(top.type) {
-        case DataType::INT:
-            out << top.data.readInt(0) << std::endl; break;
         case DataType::DOUBLE:
             out << top.data.readDouble(0) << std::endl; break;
         default:
@@ -65,10 +63,32 @@ void VirtualMachine::add() {
     //  pop will get us the data in reverse order from how it was pushed - this doesn't matter for add, will for others.
     Data d2 = pop();
     Data d1 = pop();
-    if(ARITHMETIC_ALLOWED_TABLE.at(d1.type).at(d2.type)) {
-
+    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+        double result = d1.data.readDouble(0) + d2.data.readDouble(0);
+        stack.push({DataType::DOUBLE, ByteStream(result)});
     }
-    else {
-        throw ExecutionException("Attempted to perform illegal arithmetic.");
+}
+void VirtualMachine::subtract() {
+    Data d2 = pop();
+    Data d1 = pop();
+    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+        double result = d1.data.readDouble(0) - d2.data.readDouble(0);
+        stack.push({DataType::DOUBLE, ByteStream(result)});
+    }
+}
+void VirtualMachine::multiply() {
+    Data d2 = pop();
+    Data d1 = pop();
+    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+        double result = d1.data.readDouble(0) * d2.data.readDouble(0);
+        stack.push({DataType::DOUBLE, ByteStream(result)});
+    }
+}
+void VirtualMachine::divide() {
+    Data d2 = pop();
+    Data d1 = pop();
+    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+        double result = d1.data.readDouble(0) / d2.data.readDouble(0);
+        stack.push({DataType::DOUBLE, ByteStream(result)});
     }
 }

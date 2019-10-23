@@ -107,6 +107,6 @@ void Scanner::stringFunc(){
     // this is needed for closing "
     advance();
     std::string val = source.substr(start+1, current-1); // correct use of substr?
-    addToken(TokenType::STRING, val); // can't add val due to addToken implmentation
+    //addToken(TokenType::STRING, val); // can't add val due to addToken implmentation
 }
 

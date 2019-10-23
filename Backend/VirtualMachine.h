@@ -21,7 +21,7 @@ private:
     std::string reason;
 public:
     ExecutionException(std::string reason);
-    const std::string &what() const;
+    std::string what() const;
 };
 
 class VirtualMachine {
@@ -35,7 +35,7 @@ private:
     void pop(Data &d);
     Data pop();
 
-    void pushLiteral(DataType dt); // push a literal on the stack
+    void pushNextLiteral(); // push from bytecode
     void print(); // pop the top value off the stack and print it
 
     void add();
@@ -47,18 +47,6 @@ public:
 
     //  Executes the bytecode.
     void execute();
-};
-
-//  not a fan.
-const static std::unordered_map<DataType, std::unordered_map<DataType, bool>> ARITHMETIC_ALLOWED_TABLE = {
-        { DataType::INT,
-                {{DataType::INT, true},
-                    {DataType::DOUBLE, true}}
-        },
-        {DataType::DOUBLE,
-                {{DataType::INT, true},
-                    {DataType::DOUBLE, true}};
-        }
 };
 
 #endif //CLEOD_VIRTUALMACHINE_H

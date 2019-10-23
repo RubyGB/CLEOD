@@ -21,12 +21,12 @@ enum class TokenType {
     LESS, LESS_EQUAL,
 
     // Literals: (someVariable, "hello world!", -8, 7.231, etc.)
-    LIT_IDENTIFIER, LIT_STRING, LIT_INTEGER, LIT_FLOATING,
+    LIT_IDENTIFIER, LIT_STRING, LIT_NUMBER,
 
     // Keywords beyond this point!
     // Control flow keywords:
     IF, ELSE, FOR, WHILE, SWITCH, CASE, AND, OR, TRUE, FALSE, RETURN,
-    // Typing keywords (VAR -> dynamic)
+    // Typing keywords (VAR -> dynamic) (some of these may now be unused)
     VAR, VOID, BOOL, BYTE, INT, UINT, FLOAT, STRING,
     // Other keywords
     PRINT,
@@ -67,8 +67,7 @@ const std::unordered_map<TokenType, std::string> TOKEN_TYPE_NAMES = {
 
         {TokenType::LIT_IDENTIFIER, "LIT_IDENTIFIER"},
         {TokenType::LIT_STRING, "LIT_STRING"},
-        {TokenType::LIT_INTEGER, "LIT_INTEGER"},
-        {TokenType::LIT_FLOATING, "LIT_FLOATING"},
+        {TokenType::LIT_NUMBER, "LIT_NUMBER"},
 
         {TokenType::IF, "IF"}, {TokenType::ELSE, "ELSE"},
         {TokenType::FOR, "FOR"}, {TokenType::WHILE, "WHILE"},
