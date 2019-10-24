@@ -79,8 +79,12 @@ char Scanner::advance() {
 }
 
 void Scanner::addToken(TokenType type) {
+    addToken(type, nullptr);
+}
+
+void Scanner::addToken(TokenType type, void* literal) {
     text = source.substr(start, current-start);
-    tokens.push_back({type, text, line});
+    tokens.push_back({type, text, literal, line});
 }
 
 bool Scanner::match(char c){
