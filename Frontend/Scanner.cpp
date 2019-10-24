@@ -17,7 +17,7 @@ std::vector<Token> Scanner::scanTokens() {
         start = current;
         scanToken();
     }
-    tokens.push_back({TokenType::EF,  "", line});
+    tokens.push_back({TokenType::EF,  "", nullptr, line});
     return tokens;
 }
 
@@ -69,6 +69,12 @@ void Scanner::scanToken() {
             break;
         // string literals
         case '"': stringFunc(); break;
+        default:
+            if (isdigit(c)){
+                numberFunc();
+            }else{
+                //throw error
+            }
     }
 }
 
@@ -99,6 +105,11 @@ char Scanner::peek(){
     return source.at(current);
 }
 
+char Scanner::peekNext(){
+    if (current + 1 >= source.length()){return '\0';} // null terminate
+    return source.at(current + 1);
+}
+
 void Scanner::stringFunc(){
     while (peek() != '"' && !isAtEnd()){
         if (peek() == '\n'){line++;}
@@ -111,6 +122,18 @@ void Scanner::stringFunc(){
     // this is needed for closing "
     advance();
     std::string val = source.substr(start+1, current-1); // correct use of substr?
-    //addToken(TokenType::STRING, val); // can't add val due to addToken implmentation
+    addToken(TokenType::STRING, &val);
+}
+
+void Scanner::numberFunc(){
+    while(isdigit(peek())){ advance();}
+    if (peek() == '.' && isdigit(peekNext())){
+        // to consume "."
+        advance();
+        while (isdigit(peek())) advance();
+    }
+    double val = std::stod(source.substr(start, current));
+    void *valptr = &val;
+    addToken(TokenType::LIT_NUMBER, valptr);
 }
 

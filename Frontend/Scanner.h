@@ -34,7 +34,9 @@ private:
     void addToken(TokenType type, void* literal); // overloaded
     bool match(char c); // checks if next character is c
     char peek();
+    char peekNext();
     void stringFunc();
+    void numberFunc();
 
 public:
     // Constructor for Scanner class
