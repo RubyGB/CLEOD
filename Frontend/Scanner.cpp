@@ -72,6 +72,9 @@ void Scanner::scanToken() {
         default:
             if (isdigit(c)){
                 numberFunc();
+            }
+            else if (isalpha(c)){
+                identifier();
             }else{
                 //throw error
             }
@@ -135,5 +138,25 @@ void Scanner::numberFunc(){
     double val = std::stod(source.substr(start, current));
     void *valptr = &val;
     addToken(TokenType::LIT_NUMBER, valptr);
+}
+
+std::unordered_map<std::string, TokenType> keywords = {
+        {"true", TokenType::TRUE},
+        {"false", TokenType::FALSE},
+        {"print", TokenType::PRINT},
+        {"if", TokenType::IF},
+        {"for", TokenType::FOR},
+        {"return", TokenType::RETURN},
+        {"while", TokenType::WHILE},
+        {"switch", TokenType::SWITCH},
+        {"case", TokenType::CASE}
+};
+
+void Scanner::identifier(){
+    while (isalnum(peek())) {advance();} // first val must be num (solved in switch case, through isalpha function)
+    // checking for keywords
+    std::string txt = source.substr(start, current);
+    TokenType type = keywords[txt];
+    addToken(type);
 }
 

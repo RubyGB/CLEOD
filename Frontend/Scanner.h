@@ -37,6 +37,7 @@ private:
     char peekNext();
     void stringFunc();
     void numberFunc();
+    void identifier();
 
 public:
     // Constructor for Scanner class
