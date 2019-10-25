@@ -17,7 +17,7 @@ std::vector<Token> Scanner::scanTokens() {
         start = current;
         scanToken();
     }
-    tokens.push_back({TokenType::EF,  "", nullptr, line});
+    tokens.push_back({TokenType::EF, "", line});
     return tokens;
 }
 
@@ -87,13 +87,11 @@ char Scanner::advance() {
     return source.at(current - 1);
 }
 
+// when adding strings might have issue where quotes are added,
+// could this be resolved with compiler?
 void Scanner::addToken(TokenType type) {
-    addToken(type, nullptr);
-}
-
-void Scanner::addToken(TokenType type, void* literal) {
     text = source.substr(start, current-start);
-    tokens.push_back({type, text, literal, line});
+    tokens.push_back({type, text, line});
 }
 
 bool Scanner::match(char c){
@@ -124,8 +122,7 @@ void Scanner::stringFunc(){
     }
     // this is needed for closing "
     advance();
-    std::string val = source.substr(start+1, current-1); // correct use of substr?
-    addToken(TokenType::STRING, &val);
+    addToken(TokenType::STRING);
 }
 
 void Scanner::numberFunc(){
@@ -135,9 +132,7 @@ void Scanner::numberFunc(){
         advance();
         while (isdigit(peek())) advance();
     }
-    double val = std::stod(source.substr(start, current));
-    void *valptr = &val;
-    addToken(TokenType::LIT_NUMBER, valptr);
+    addToken(TokenType::LIT_NUMBER);
 }
 
 std::unordered_map<std::string, TokenType> keywords = {

@@ -31,7 +31,6 @@ private:
     void scanToken(); // maps character to appropriate TokenType
     char advance(); // advancing character by character
     void addToken(TokenType type); // adds token to token vector
-    void addToken(TokenType type, void* literal); // overloaded
     bool match(char c); // checks if next character is c
     char peek();
     char peekNext();
