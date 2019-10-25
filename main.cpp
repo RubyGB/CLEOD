@@ -5,6 +5,7 @@
 #include "Frontend/Token.h"
 #include "MiddleEnd/Compiler.h"
 #include "Backend/VirtualMachine.h"
+#include "Frontend/Scanner.h"
 
 /*
  * Catch2 - our unit testing framework!
@@ -14,6 +15,19 @@
 //#define CATCH_CONFIG_MAIN
 #ifndef CATCH_CONFIG_MAIN
 int main() {
+    std::cout << "Scanning..." << std::endl;
+    Scanner s("Cleod1.cleod");
+    std::vector<Token> tokens = s.scanTokens();
+    for(auto t : tokens)
+        std::cout << t << std::endl;
+    std::cout << "Compiling..." << std::endl;
+    Compiler c(tokens);
+    Bytecode bc = c.compile();
+    //  Code currently never reaches here
+    std::cout << "Executing..." << std::endl;
+    VirtualMachine vm(bc);
+
+    /*
     std::vector<Token> mockTokens = {
             {TokenType::PRINT, "print", 1},
             {TokenType::LIT_NUMBER, "0", 1},
@@ -57,7 +71,7 @@ int main() {
     catch(CompilationException &e) {
         std::cout << e.what() << std::endl;
     }
-
+    */
     return 0;
 }
 #endif
