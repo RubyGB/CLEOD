@@ -36,6 +36,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionUndo"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -80,11 +81,11 @@
     <addaction name="actionCut"/>
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
+    <addaction name="actionDelete"/>
     <addaction name="separator"/>
     <addaction name="actionFind_Word"/>
     <addaction name="actionFine_Replace"/>
     <addaction name="separator"/>
-    <addaction name="actionDelete"/>
    </widget>
    <widget class="QMenu" name="menuDebugger">
     <property name="title">
@@ -182,6 +183,10 @@
    </property>
   </action>
   <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/rec/icons/undo.png</normaloff>:/rec/icons/undo.png</iconset>
+   </property>
    <property name="text">
     <string>Undo</string>
    </property>
@@ -237,6 +242,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

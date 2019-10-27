@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/rec">
+        <file>icons/undo.png</file>
+    </qresource>
+</RCC>
