@@ -8,7 +8,7 @@
 
 #include <fstream>
 #include <sstream>
-#include <string.h>
+
 
 #include "Token.h"
 
@@ -25,13 +25,24 @@ private:
     std::vector<Token> tokens; // vector of tokens
     std::ifstream src; //  Constructor should initialize this.
     std::stringstream buffer; // buffer that holds the contents of file
+    std::unordered_map<std::string, TokenType> keywords = { // mapping keywords to TokenType
+            {"true", TokenType::TRUE},
+            {"false", TokenType::FALSE},
+            {"print", TokenType::PRINT},
+            {"if", TokenType::IF},
+            {"for", TokenType::FOR},
+            {"return", TokenType::RETURN},
+            {"while", TokenType::WHILE},
+            {"switch", TokenType::SWITCH},
+            {"case", TokenType::CASE}
+    };
 
     // Helper functions:
     bool isAtEnd();
     void scanToken(); // maps character to appropriate TokenType
     char advance(); // advancing character by character
     void addToken(TokenType type); // adds token to token vector
-    bool match(char c); // checks if next character is c
+    bool match(char ch); // checks if next character is ch
     char peek();
     char peekNext();
     void stringFunc();
