@@ -150,7 +150,7 @@ std::unordered_map<std::string, TokenType> keywords = {
 void Scanner::identifier(){
     while (isalnum(peek())) {advance();} // first val must be num (solved in switch case, through isalpha function)
     // checking for keywords
-    std::string txt = source.substr(start, current);
+    std::string txt = source.substr(start, current - start);
     TokenType type = keywords[txt];
     addToken(type);
 }

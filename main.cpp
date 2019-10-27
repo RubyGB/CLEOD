@@ -18,7 +18,7 @@ int main() {
     std::cout << "Scanning..." << std::endl;
     Scanner s("Cleod1.cleod");
     std::vector<Token> tokens = s.scanTokens();
-    for(auto t : tokens)
+    for(const auto& t : tokens)
         std::cout << t << std::endl;
     std::cout << "Compiling..." << std::endl;
     Compiler c(tokens);
