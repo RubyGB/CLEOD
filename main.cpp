@@ -23,9 +23,9 @@ int main() {
     std::cout << "Compiling..." << std::endl;
     Compiler c(tokens);
     Bytecode bc = c.compile();
-    //  Code currently never reaches here
     std::cout << "Executing..." << std::endl;
     VirtualMachine vm(bc);
+    vm.execute();
 
     /*
     std::vector<Token> mockTokens = {
