@@ -61,7 +61,7 @@ void Scanner::scanToken() {
         // comment case - long lexemes
         case '#':
             while (peek() != '\n' && !isAtEnd()){advance();} break;
-            break;
+
         // '', /r /t
         case ' ':
         case '\r':
@@ -94,9 +94,9 @@ void Scanner::addToken(TokenType type) {
     tokens.push_back({type, text, line});
 }
 
-bool Scanner::match(char c){
+bool Scanner::match(char ch){
     if (isAtEnd()) {return false;}
-    if (source.at(current) != c) {return false;} // charAt() is at() -> correct?
+    if (source.at(current) != ch) {return false;} // charAt() is at() -> correct?
     ++current;
     return true;
 }
@@ -135,17 +135,7 @@ void Scanner::numberFunc(){
     addToken(TokenType::LIT_NUMBER);
 }
 
-std::unordered_map<std::string, TokenType> keywords = {
-        {"true", TokenType::TRUE},
-        {"false", TokenType::FALSE},
-        {"print", TokenType::PRINT},
-        {"if", TokenType::IF},
-        {"for", TokenType::FOR},
-        {"return", TokenType::RETURN},
-        {"while", TokenType::WHILE},
-        {"switch", TokenType::SWITCH},
-        {"case", TokenType::CASE}
-};
+
 
 void Scanner::identifier(){
     while (isalnum(peek())) {advance();} // first val must be num (solved in switch case, through isalpha function)
