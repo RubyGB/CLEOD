@@ -36,7 +36,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionUndo"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -151,7 +151,6 @@ public:
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
         McleodIDE->setMenuBar(menubar);
 
-        toolBar->addAction(actionUndo);
         menubar->addAction(menuFile->menuAction());
         menubar->addAction(menuEdit->menuAction());
         menubar->addAction(menuProject->menuAction());
