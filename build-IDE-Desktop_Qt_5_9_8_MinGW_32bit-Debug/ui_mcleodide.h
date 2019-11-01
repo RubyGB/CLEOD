@@ -99,6 +99,9 @@ public:
         actionBuild_and_Run_Project_2->setObjectName(QStringLiteral("actionBuild_and_Run_Project_2"));
         actionUndo = new QAction(McleodIDE);
         actionUndo->setObjectName(QStringLiteral("actionUndo"));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/rec/icons/undo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionUndo->setIcon(icon);
         actionRedo = new QAction(McleodIDE);
         actionRedo->setObjectName(QStringLiteral("actionRedo"));
         actionCut = new QAction(McleodIDE);
@@ -148,6 +151,7 @@ public:
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
         McleodIDE->setMenuBar(menubar);
 
+        toolBar->addAction(actionUndo);
         menubar->addAction(menuFile->menuAction());
         menubar->addAction(menuEdit->menuAction());
         menubar->addAction(menuProject->menuAction());
@@ -174,11 +178,11 @@ public:
         menuEdit->addAction(actionCut);
         menuEdit->addAction(actionCopy);
         menuEdit->addAction(actionPaste);
+        menuEdit->addAction(actionDelete);
         menuEdit->addSeparator();
         menuEdit->addAction(actionFind_Word);
         menuEdit->addAction(actionFine_Replace);
         menuEdit->addSeparator();
-        menuEdit->addAction(actionDelete);
         menuWindow->addAction(actionNew_Window);
         menuHelp->addAction(actionWelcome);
         menuHelp->addAction(actionMcleod_Documentation);
