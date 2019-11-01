@@ -191,6 +191,10 @@
    </property>
   </action>
   <action name="actionRedo">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/rec/icons/redo.png</normaloff>:/rec/icons/redo.png</iconset>
+   </property>
    <property name="text">
     <string>Redo</string>
    </property>

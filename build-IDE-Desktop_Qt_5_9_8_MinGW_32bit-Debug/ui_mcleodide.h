@@ -104,6 +104,9 @@ public:
         actionUndo->setIcon(icon);
         actionRedo = new QAction(McleodIDE);
         actionRedo->setObjectName(QStringLiteral("actionRedo"));
+        QIcon icon1;
+        icon1.addFile(QStringLiteral(":/rec/icons/redo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRedo->setIcon(icon1);
         actionCut = new QAction(McleodIDE);
         actionCut->setObjectName(QStringLiteral("actionCut"));
         actionCopy = new QAction(McleodIDE);
