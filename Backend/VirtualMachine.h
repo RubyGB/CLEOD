@@ -1,19 +1,20 @@
-//
-// Created by jonwi on 10/14/2019.
-//
-
-#ifndef CLEOD_VIRTUALMACHINE_H
-#define CLEOD_VIRTUALMACHINE_H
+#pragma once
 
 #include <stack>
 #include <iostream>
 
 #include "../MiddleEnd/Bytecode.h"
+#include "../MiddleEnd/Object.h"
 
 //  VirtualMachine will implement a stack<Data> which gets pushed to and consumed from to execute instructions
+union DataValue {
+    double d;
+    bool b;
+    Object *o;
+};
 struct Data {
     DataType type;
-    ByteStream data;
+    DataValue data;
 };
 
 class ExecutionException {
@@ -48,5 +49,3 @@ public:
     //  Executes the bytecode.
     void execute();
 };
-
-#endif //CLEOD_VIRTUALMACHINE_H
