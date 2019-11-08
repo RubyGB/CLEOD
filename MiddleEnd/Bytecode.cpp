@@ -169,6 +169,11 @@ double Bytecode::nextDouble() {
     pc += 8;
     return result;
 }
+std::string Bytecode::nextString() {
+    std::string result = code.readString(pc);
+    pc += result.length() + 1; // +1 for null terminator '\0'
+    return result;
+}
 
 void Bytecode::resetHead() {
     pc = 0;
