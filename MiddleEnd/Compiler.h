@@ -90,6 +90,7 @@ private:
     void unary();
     void binary();
     void number();
+    void string();
 
     PrattRule getRule(TokenType type) const;
     /*
@@ -117,7 +118,7 @@ private:
             {TokenType::LESS_EQUAL,     {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_IDENTIFIER, {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_NUMBER,   {&Compiler::number,  nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_STRING,     {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_STRING,     {&Compiler::string,            nullptr, Precedence::PREC_NONE}},
             {TokenType::AND,            {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::OR,             {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::IF,             {nullptr,            nullptr, Precedence::PREC_NONE}},
