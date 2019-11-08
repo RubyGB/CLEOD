@@ -63,7 +63,7 @@ void VirtualMachine::add() {
     //  pop will get us the data in reverse order from how it was pushed - this doesn't matter for add, will for others.
     Data d2 = pop();
     Data d1 = pop();
-    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+    if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d + d2.data.d;
         stack.push({DataType::DOUBLE, result});
     }
@@ -71,7 +71,7 @@ void VirtualMachine::add() {
 void VirtualMachine::subtract() {
     Data d2 = pop();
     Data d1 = pop();
-    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+    if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d - d2.data.d;
         stack.push({DataType::DOUBLE, result});
     }
@@ -79,7 +79,7 @@ void VirtualMachine::subtract() {
 void VirtualMachine::multiply() {
     Data d2 = pop();
     Data d1 = pop();
-    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+    if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d * d2.data.d;
         stack.push({DataType::DOUBLE, result});
     }
@@ -87,7 +87,7 @@ void VirtualMachine::multiply() {
 void VirtualMachine::divide() {
     Data d2 = pop();
     Data d1 = pop();
-    if(d1.type == DataType::DOUBLE && d1.type == DataType::DOUBLE) {
+    if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d / d2.data.d;
         stack.push({DataType::DOUBLE, result});
     }
