@@ -154,6 +154,12 @@ void Compiler::number() {
     code.writeDouble(std::stod(previous->data));
 }
 
+void Compiler::string(){
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::STRING);
+    code.writeString(previous->data);
+}
+
 PrattRule Compiler::getRule(TokenType type) const {
     return CLEOD_PRATT_TABLE.at(type);
 }
