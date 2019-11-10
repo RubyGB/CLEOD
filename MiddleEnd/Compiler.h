@@ -135,7 +135,7 @@ private:
             {TokenType::RETURN,         {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::VAR,            {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::VOID,           {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::BOOL,           {nullptr, nullptr, Precedence::PREC_NONE}},
+            {TokenType::BOOL,           {&Compiler::cleodBoolean, nullptr, Precedence::PREC_NONE}},
             {TokenType::BYTE,           {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::INT,            {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::UINT,           {nullptr, nullptr, Precedence::PREC_NONE}},
