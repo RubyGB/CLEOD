@@ -7,6 +7,7 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QTabWidget>
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class McleodIDE; }
@@ -41,6 +42,15 @@ private slots:
 
     void on_actionPaste_triggered();
 
+    void on_actionFind_Word_triggered();
+    /*
+
+    void on_actionNew_Window_triggered();
+
+    void on_actionWelcome_triggered();
+
+    void on_actionMcleod_Documentation_triggered();
+    **/
 private:
     Ui::McleodIDE *ui;
     QString currentFile = "";

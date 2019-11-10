@@ -63,11 +63,8 @@
      <string>Project</string>
     </property>
     <addaction name="actionOpen_Project"/>
-    <addaction name="actionClose_Porject"/>
+    <addaction name="actionClose_Project"/>
     <addaction name="separator"/>
-    <addaction name="actionRun"/>
-    <addaction name="actionRun_Project_2"/>
-    <addaction name="actionBuild_and_Run_Project_2"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -79,10 +76,8 @@
     <addaction name="actionCut"/>
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
-    <addaction name="actionDelete"/>
     <addaction name="separator"/>
     <addaction name="actionFind_Word"/>
-    <addaction name="actionFine_Replace"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuDebugger">
@@ -140,7 +135,7 @@
     <string>Open Project</string>
    </property>
   </action>
-  <action name="actionClose_Porject">
+  <action name="actionClose_Project">
    <property name="text">
     <string>Close Project</string>
    </property>
@@ -150,27 +145,12 @@
     <string>Save Project</string>
    </property>
   </action>
-  <action name="actionRun">
-   <property name="text">
-    <string>Build Project</string>
-   </property>
-  </action>
   <action name="actionRun_Project">
    <property name="text">
     <string>Run Project</string>
    </property>
   </action>
   <action name="actionBuild_and_Run_Project">
-   <property name="text">
-    <string>Build and Run Project</string>
-   </property>
-  </action>
-  <action name="actionRun_Project_2">
-   <property name="text">
-    <string>Run Project</string>
-   </property>
-  </action>
-  <action name="actionBuild_and_Run_Project_2">
    <property name="text">
     <string>Build and Run Project</string>
    </property>
@@ -212,15 +192,8 @@
    <property name="text">
     <string>Find Word</string>
    </property>
-  </action>
-  <action name="actionFine_Replace">
-   <property name="text">
-    <string>Fine/Replace</string>
-   </property>
-  </action>
-  <action name="actionDelete">
-   <property name="text">
-    <string>Delete</string>
+   <property name="shortcut">
+    <string>Meta+F</string>
    </property>
   </action>
   <action name="actionNew_Window">

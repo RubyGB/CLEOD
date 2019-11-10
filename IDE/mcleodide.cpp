@@ -105,3 +105,27 @@ void McleodIDE::on_actionPaste_triggered()
 {
     ui->textEdit->paste();
 }
+
+void McleodIDE::on_actionFind_Word_triggered()
+{
+    QString findtext = QInputDialog::getText(this,"Enter:", "Text:");
+    ui->textEdit->moveCursor(QTextCursor::Start);
+    ui->textEdit->find(findtext,QTextDocument::FindWholeWords);
+}
+
+/*
+void McleodIDE::on_actionNew_Window_triggered()
+{
+
+}
+
+void McleodIDE::on_actionWelcome_triggered()
+{
+
+}
+
+void McleodIDE::on_actionMcleod_Documentation_triggered()
+{
+
+}
+**/
