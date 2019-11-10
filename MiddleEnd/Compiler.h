@@ -90,6 +90,7 @@ private:
     void unary();
     void binary();
     void number();
+    void cleodBoolean(); // compliation of boolean - had to name it cleodBoolean, boolean defined in fragment.cpp
 
     PrattRule getRule(TokenType type) const;
     /*

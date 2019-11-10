@@ -148,6 +148,20 @@ void Compiler::binary() {
             return;
     }
 }
+
+// complier boolean
+// write opcode
+// write data type
+// two if pstatemtns code . write bool type
+// will want to write in pratt table for compiler literal number for true false put compiler type boolean
+void Compiler::cleodBoolean(){
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::BOOL);
+    if (code.readBool(1)){
+        code.writeBool("true");
+    }else{code.writeBool("false");}
+}
+
 void Compiler::number() {
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::DOUBLE);
