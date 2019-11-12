@@ -22,6 +22,7 @@ public:
     ~McleodIDE();
 
 private slots:
+
     void on_actionNew_triggered();
 
     void on_actionOpen_triggered();
@@ -41,16 +42,11 @@ private slots:
     void on_actionCopy_triggered();
 
     void on_actionPaste_triggered();
-    /*
-
-    void on_actionNew_Window_triggered();
-
+/*
     void on_actionWelcome_triggered();
 
     void on_actionMcleod_Documentation_triggered();
-    **/
-    void on_tabWidget_tabCloseRequested(int index);
-
+**/
 private:
     Ui::McleodIDE *ui;
     QString currentFile = "";
