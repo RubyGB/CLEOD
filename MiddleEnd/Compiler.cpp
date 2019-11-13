@@ -159,8 +159,8 @@ void Compiler::cleodBoolean(){
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::BOOL);
     if (previous->type == TokenType::TRUE){
-        code.writeBool("true");
-    } else{ code.writeBool("false"); }
+        code.writeBool(true);
+    } else{ code.writeBool(false); }
 }
 
 void Compiler::string(){
