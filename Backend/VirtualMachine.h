@@ -5,16 +5,27 @@
 
 #include "../MiddleEnd/Bytecode.h"
 #include "../MiddleEnd/Object.h"
+#include "GarbageCollector.h"
 
 //  VirtualMachine will implement a stack<Data> which gets pushed to and consumed from to execute instructions
 union DataValue {
     double d;
     bool b;
     Object *o;
+
+    DataValue(double _d) : d(_d) {}
+    DataValue(bool _b) : b(_b) {}
+    DataValue(Object *_o) : o(_o) {}
 };
 struct Data {
     DataType type;
     DataValue data;
+
+    Data() : type(DataType::INVALID), data(nullptr) {}
+    Data(double d) : type(DataType::DOUBLE), data(d) {}
+    Data(bool b) : type(DataType::BOOL), data(b) {}
+    Data(Object *o) : type(DataType::VAR), data(o) {}
+    Data(StringObject *so) : type(DataType::STRING), data(so) {}
 };
 
 class ExecutionException {
@@ -29,6 +40,7 @@ class VirtualMachine {
 private:
     Bytecode code;
     std::stack<Data> stack;
+    GarbageCollector gc;
 
     //  All printing output goes here - later we will make this a reference to the GUI console
     std::ostream &out = std::cout;

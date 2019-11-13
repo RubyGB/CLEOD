@@ -39,7 +39,7 @@ enum class Opcode : byte {
 };
 
 enum class DataType : byte {
-    DOUBLE, BOOL, STRING, OPCODE, VAR
+    DOUBLE, BOOL, STRING, OPCODE, VAR, INVALID
 };
 
 // Error class for when user tries to read data and hits eof for the bytestream/bytecode

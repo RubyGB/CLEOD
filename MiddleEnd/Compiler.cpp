@@ -148,20 +148,16 @@ void Compiler::binary() {
             return;
     }
 }
-
-
-void Compiler::cleodBoolean(){
-    code.writeOpcode(Opcode::LITERAL);
-    code.writeDataType(DataType::BOOL);
-    if (code.readBool(1)){
-        code.writeBool("true");
-    }else{code.writeBool("false");}
-}
-
 void Compiler::number() {
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::DOUBLE);
     code.writeDouble(std::stod(previous->data));
+}
+
+void Compiler::string(){
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::STRING);
+    code.writeString(previous->data);
 }
 
 PrattRule Compiler::getRule(TokenType type) const {
