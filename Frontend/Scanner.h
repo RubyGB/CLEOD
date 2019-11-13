@@ -45,9 +45,9 @@ private:
     bool match(char ch); // checks if next character is ch
     char peek();
     char peekNext();
-    void stringFunc();
-    void numberFunc();
-    void identifier();
+    void stringFunc(); // recognizing string literal
+    void numberFunc(); // recognizing number literal
+    void identifier(); // recognizing identifier
 
 public:
     // Constructor for Scanner class

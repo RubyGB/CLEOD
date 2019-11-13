@@ -135,8 +135,6 @@ void Scanner::numberFunc(){
     addToken(TokenType::LIT_NUMBER);
 }
 
-
-
 void Scanner::identifier(){
     while (isalnum(peek())) {advance();} // first val must be num (solved in switch case, through isalpha function)
     // checking for keywords
