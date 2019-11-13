@@ -90,8 +90,8 @@ private:
     void unary();
     void binary();
     void number();
+    void cleodBoolean(); // compliation of boolean - had to name it cleodBoolean, boolean defined in fragment.cpp
     void string();
-
     PrattRule getRule(TokenType type) const;
     /*
      * The almighty beast that resides at the heart of our compiler
@@ -118,7 +118,7 @@ private:
             {TokenType::LESS_EQUAL,     {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_IDENTIFIER, {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_NUMBER,   {&Compiler::number,  nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_STRING,     {&Compiler::string,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_STRING,     {&Compiler::string,           nullptr, Precedence::PREC_NONE}},
             {TokenType::AND,            {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::OR,             {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::IF,             {nullptr,            nullptr, Precedence::PREC_NONE}},
@@ -135,7 +135,7 @@ private:
             {TokenType::RETURN,         {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::VAR,            {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::VOID,           {nullptr, nullptr, Precedence::PREC_NONE}},
-            {TokenType::BOOL,           {nullptr, nullptr, Precedence::PREC_NONE}},
+            {TokenType::BOOL,           {&Compiler::cleodBoolean, nullptr, Precedence::PREC_NONE}},
             {TokenType::BYTE,           {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::INT,            {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::UINT,           {nullptr, nullptr, Precedence::PREC_NONE}},

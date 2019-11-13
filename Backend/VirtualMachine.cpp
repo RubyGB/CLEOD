@@ -26,6 +26,9 @@ void VirtualMachine::execute() {
                 break;
         }
     }
+
+    //  Do GC (very trivial atm) to prevent memory leaks
+    gc.cleanAll();
 }
 
 void VirtualMachine::pop(Data &d) {
@@ -40,9 +43,15 @@ Data VirtualMachine::pop() {
 
 void VirtualMachine::pushNextLiteral() {
     DataType dt = code.nextDataType();
+    StringObject *so;
     switch(dt) {
         case DataType::DOUBLE:
-            stack.push({dt, code.nextDouble()});
+            stack.push(Data(code.nextDouble()));
+            break;
+        case DataType::STRING:
+            so = new StringObject(code.nextString());
+            gc.add(so);
+            stack.push(Data(so));
             break;
         default:
             break;
@@ -51,9 +60,14 @@ void VirtualMachine::pushNextLiteral() {
 
 void VirtualMachine::print() {
     Data top = pop();
+    StringObject *so;
     switch(top.type) {
         case DataType::DOUBLE:
             out << top.data.d << std::endl; break;
+        case DataType::STRING:
+            so = dynamic_cast<StringObject *>(top.data.o);
+            out << so->s << std::endl;
+            break;
         default:
             break;
     }
@@ -65,7 +79,7 @@ void VirtualMachine::add() {
     Data d1 = pop();
     if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d + d2.data.d;
-        stack.push({DataType::DOUBLE, result});
+        stack.push(Data(result));
     }
 }
 void VirtualMachine::subtract() {
@@ -73,7 +87,7 @@ void VirtualMachine::subtract() {
     Data d1 = pop();
     if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d - d2.data.d;
-        stack.push({DataType::DOUBLE, result});
+        stack.push(Data(result));
     }
 }
 void VirtualMachine::multiply() {
@@ -81,7 +95,7 @@ void VirtualMachine::multiply() {
     Data d1 = pop();
     if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d * d2.data.d;
-        stack.push({DataType::DOUBLE, result});
+        stack.push(Data(result));
     }
 }
 void VirtualMachine::divide() {
@@ -89,6 +103,6 @@ void VirtualMachine::divide() {
     Data d1 = pop();
     if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d / d2.data.d;
-        stack.push({DataType::DOUBLE, result});
+        stack.push(Data(result));
     }
 }

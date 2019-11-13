@@ -122,7 +122,7 @@ void Scanner::stringFunc(){
     }
     // this is needed for closing "
     advance();
-    addToken(TokenType::STRING);
+    addToken(TokenType::LIT_STRING);
 }
 
 void Scanner::numberFunc(){

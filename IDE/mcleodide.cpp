@@ -9,10 +9,12 @@ McleodIDE::McleodIDE(QWidget *parent)
     this->setCentralWidget(ui->textEdit);
 }
 
+
 McleodIDE::~McleodIDE()
 {
     delete ui;
 }
+
 
 
 void McleodIDE::on_actionNew_triggered()
@@ -76,6 +78,7 @@ void McleodIDE::on_actionSave_as_triggered()
     file.close();
 }
 
+
 void McleodIDE::on_actionExit_triggered()
 {
     QApplication::quit();
@@ -105,3 +108,14 @@ void McleodIDE::on_actionPaste_triggered()
 {
     ui->textEdit->paste();
 }
+/*
+void McleodIDE::on_actionWelcome_triggered()
+{
+
+}
+
+void McleodIDE::on_actionMcleod_Documentation_triggered()
+{
+
+}
+**/
