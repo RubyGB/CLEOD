@@ -2,12 +2,36 @@
 #define MCLEODIDE_H
 
 #include <QMainWindow>
+#include <QGridLayout>
+#include <QWidget>
+#include <QTabWidget>
+//#include <QSyntaxHighlighter>
+#include <QString>
+#include <QMenu>
+#include <QMessageBox>
+#include <QErrorMessage>
 #include <QFile>
 #include <QFileDialog>
-#include <QTextStream>
-#include <QMessageBox>
-#include <QTabWidget>
-#include <QInputDialog>
+#include <QFileInfo>
+#include <QDockWidget>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QTreeView>
+#include <QDirModel>
+#include <QModelIndex>
+#include <QToolBar>
+#include <QTabBar>
+#include <QAction>
+#include <QToolButton>
+#include <QCloseEvent>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QList>
+#include <QUrl>
+
+#include "linenumberarea.h"
+#include "texteditor.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class McleodIDE; }
@@ -23,32 +47,46 @@ public:
 
 private slots:
 
-    void on_actionNew_triggered();
+    void ChangeTabIndexInList(int, int);
 
-    void on_actionOpen_triggered();
+    void DeleteTabFromList(int);
 
-    void on_actionSave_triggered();
+    void UpdateCurrentIndex(int);
 
-    void on_actionSave_as_triggered();
+    void UpdateCurrentIndex(QListWidgetItem*);
 
-    void on_actionExit_triggered();
+    void UpdateCurrentIndexOnDelete(int);
 
-    void on_actionUndo_triggered();
+    void CreateFile();
+    void OpenFile();
+    void OpenFile(const QString&);
+    void OpenFile(QModelIndex);
+    void SaveFile();
+    void SaveFileAs();
+    void Close();
+    void Close(int);
+    void Cut();
+    void Copy();
+    void Paste();
+    void Undo();
+    void Redo();
 
-    void on_actionRedo_triggered();
 
-    void on_actionCut_triggered();
-
-    void on_actionCopy_triggered();
-
-    void on_actionPaste_triggered();
-/*
-    void on_actionWelcome_triggered();
-
-    void on_actionMcleod_Documentation_triggered();
-**/
 private:
     Ui::McleodIDE *ui;
     QString currentFile = "";
+    QTabWidget* tabs;
+
+    QDirModel* file_system_model;
+    QTreeView* file_system_view;
+    QListWidget* opened_docs_widget;
+
+    QDockWidget* file_explorer_dock;
+    QDockWidget* opened_docs_dock;
+
+    void SetupTabWidget();
+    void SetupFileDock();
+    void CreateDocWindows();
+    void SetupMenu();
 };
 #endif // MCLEODIDE_H
