@@ -22,6 +22,10 @@ void VirtualMachine::execute() {
                 multiply(); break;
             case Opcode::DIVIDE:
                 divide(); break;
+            case Opcode::LT:
+                lt();
+            case Opcode::BNE:
+                bne();
             default:
                 break;
         }
@@ -105,4 +109,22 @@ void VirtualMachine::divide() {
         double result = d1.data.d / d2.data.d;
         stack.push(Data(result));
     }
+}
+void VirtualMachine::lt(){
+        Data d1 = pop();
+        Data d2 = pop();
+        if (d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE){
+            bool rslt = (d1.data.d < d2.data.d);
+            stack.push(Data(rslt));
+        }
+    }
+void VirtualMachine::bne(){
+        // fill
+        Data d1 = pop();
+        uint offset = code.nextUint();
+        if (d1.type == DataType::BOOL){
+            if (!d1.data.d){
+                code.stepForward(offset);
+            }
+        }
 }
