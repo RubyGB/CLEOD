@@ -57,6 +57,9 @@ void VirtualMachine::pushNextLiteral() {
             gc.add(so);
             stack.push(Data(so));
             break;
+        case DataType::BOOL:
+            stack.push(Data(code.nextBool()));
+            break;
         default:
             break;
     }
@@ -72,6 +75,11 @@ void VirtualMachine::print() {
             so = dynamic_cast<StringObject *>(top.data.o);
             out << so->s << std::endl;
             break;
+        case DataType::BOOL:
+            if(top.data.b)
+                out << "true" << std::endl;
+            else
+                out << "false" << std::endl;
         default:
             break;
     }

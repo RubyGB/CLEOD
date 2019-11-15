@@ -34,6 +34,10 @@ enum class Opcode : byte {
     MULTIPLY,
     DIVIDE,
 
+    //  Boolean stuff
+    LT,
+    BNE,
+
     //  For statements:
     POP,
 };

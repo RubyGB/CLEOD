@@ -102,12 +102,31 @@ void Compiler::statement() {
     if(match(TokenType::PRINT)) {
         printStatement();
     }
+    if(match(TokenType::IF)) {
+        ifStatement();
+    }
 }
 
 void Compiler::printStatement() {
     expression();
     consume(TokenType::SEMICOLON, "Expect ';' after value.");
     code.writeOpcode(Opcode::PRINT);
+}
+void Compiler::ifStatement() {
+    consume(TokenType::LEFT_PAREN, "Expect \"(\" after if.");
+    grouping();
+    code.writeOpcode(Opcode::BNE);
+    closureStack.push(code.size()); // store current pc for rewriting
+    code.writeUint(-1); //  temporary value
+
+    consume(TokenType::LEFT_BRACE, "Expect \"{\" to scope if statement block.");
+    while(current->type != TokenType::RIGHT_BRACE) {
+        declaration();
+    }
+    consume(TokenType::RIGHT_BRACE, "Expect closing \"}\" for if statement.");
+    uint ppc = closureStack.top();
+    code[ppc] = code.size() - ppc; // set jump offset
+    closureStack.pop();
 }
 void Compiler::expressionStatement() {
     // TODO IMPLEMENT
@@ -159,8 +178,8 @@ void Compiler::cleodBoolean(){
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::BOOL);
     if (previous->type == TokenType::TRUE){
-        code.writeBool("true");
-    } else{ code.writeBool("false"); }
+        code.writeBool(true);
+    } else{ code.writeBool(false); }
 }
 
 void Compiler::string(){
