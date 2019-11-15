@@ -105,6 +105,11 @@ void ByteStream::writeDataType(DataType val) {
     writeByte(static_cast<byte>(val));
 }
 
+void ByteStream::rewriteUint(cluint val, uint pos) {
+    for(int j = 0; j < 8; j++)
+        bytes[pos + j] = (val & (BYTE_MASK << 8 * j)) >> 8 * j;
+}
+
 byte ByteStream::operator[](uint i) const {
     if(i >= bytes.size())
         throw ByteOutOfRangeException(i, bytes.size() - 1);
@@ -159,6 +164,11 @@ clint Bytecode::nextInt() {
     pc += 8;
     return result;
 }
+cluint Bytecode::nextUint() {
+    cluint result = code.readUint(pc);
+    pc += 8;
+    return result;
+}
 byte Bytecode::nextByte() {
     byte result = code.readByte(pc);
     pc++;
@@ -202,4 +212,8 @@ void Bytecode::stepForward(uint amount) {
 
 bool Bytecode::atEnd() const {
     return (pc >= code.size());
+}
+
+uint Bytecode::getPC() const {
+    return pc;
 }

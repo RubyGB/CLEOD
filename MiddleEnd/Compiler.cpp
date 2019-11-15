@@ -124,8 +124,7 @@ void Compiler::ifStatement() {
         declaration();
     }
     consume(TokenType::RIGHT_BRACE, "Expect closing \"}\" for if statement.");
-    uint ppc = closureStack.top();
-    code[ppc] = code.size() - ppc; // set jump offset
+    code.rewriteUint(code.size(), closureStack.top()); // set jump offset
     closureStack.pop();
 }
 void Compiler::expressionStatement() {
@@ -159,10 +158,11 @@ void Compiler::binary() {
     // compile right opperand
     parseWithPrecedence(nextHighest(getRule(operatorType).prec));
     switch (operatorType){
-        case TokenType::PLUS:    code.writeOpcode(Opcode::ADD); break;
-        case TokenType::MINUS:   code.writeOpcode(Opcode::SUBTRACT); break;
-        case TokenType::STAR:    code.writeOpcode(Opcode::MULTIPLY); break;
-        case TokenType::SLASH:   code.writeOpcode(Opcode::DIVIDE); break;
+        case TokenType::PLUS:       code.writeOpcode(Opcode::ADD); break;
+        case TokenType::MINUS:      code.writeOpcode(Opcode::SUBTRACT); break;
+        case TokenType::STAR:       code.writeOpcode(Opcode::MULTIPLY); break;
+        case TokenType::SLASH:      code.writeOpcode(Opcode::DIVIDE); break;
+        case TokenType::LESS:       code.writeOpcode(Opcode::LT); break;
         default:
             return;
     }

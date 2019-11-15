@@ -117,7 +117,7 @@ private:
             {TokenType::EQUAL,          {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::GREATER,        {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::GREATER_EQUAL,  {nullptr,            nullptr, Precedence::PREC_NONE}},
-            {TokenType::LESS,           {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LESS,           {nullptr, &Compiler::binary, Precedence::PREC_COMPARISON}},
             {TokenType::LESS_EQUAL,     {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_IDENTIFIER, {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_NUMBER,   {&Compiler::number,  nullptr, Precedence::PREC_NONE}},
