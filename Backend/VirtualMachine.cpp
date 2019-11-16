@@ -22,6 +22,10 @@ void VirtualMachine::execute() {
                 multiply(); break;
             case Opcode::DIVIDE:
                 divide(); break;
+            case Opcode::LT:
+                lt(); break;
+            case Opcode::BNE:
+                bne(); break;
             default:
                 break;
         }
@@ -53,6 +57,9 @@ void VirtualMachine::pushNextLiteral() {
             gc.add(so);
             stack.push(Data(so));
             break;
+        case DataType::BOOL:
+            stack.push(Data(code.nextBool()));
+            break;
         default:
             break;
     }
@@ -68,6 +75,11 @@ void VirtualMachine::print() {
             so = dynamic_cast<StringObject *>(top.data.o);
             out << so->s << std::endl;
             break;
+        case DataType::BOOL:
+            if(top.data.b)
+                out << "true" << std::endl;
+            else
+                out << "false" << std::endl;
         default:
             break;
     }
@@ -104,5 +116,23 @@ void VirtualMachine::divide() {
     if(d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE) {
         double result = d1.data.d / d2.data.d;
         stack.push(Data(result));
+    }
+}
+void VirtualMachine::lt(){
+    Data d2 = pop();
+    Data d1 = pop();
+    if (d1.type == DataType::DOUBLE && d2.type == DataType::DOUBLE){
+        bool rslt = (d1.data.d < d2.data.d);
+        stack.push(Data(rslt));
+    }
+}
+void VirtualMachine::bne(){
+    // fill
+    cluint jumpLoc = code.nextUint();
+    Data d1 = pop();
+    if (d1.type == DataType::BOOL){
+        if (!d1.data.b){
+            code.setHead(jumpLoc);
+        }
     }
 }

@@ -55,6 +55,8 @@ private:
     void subtract();
     void multiply();
     void divide();
+    void lt();
+    void bne();
 public:
     VirtualMachine(Bytecode &code);
 
