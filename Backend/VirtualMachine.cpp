@@ -26,6 +26,8 @@ void VirtualMachine::execute() {
                 lt(); break;
             case Opcode::BNE:
                 bne(); break;
+            case Opcode::JMP:
+                jmp(); break;
             default:
                 break;
         }
@@ -127,7 +129,6 @@ void VirtualMachine::lt(){
     }
 }
 void VirtualMachine::bne(){
-    // fill
     cluint jumpLoc = code.nextUint();
     Data d1 = pop();
     if (d1.type == DataType::BOOL){
@@ -135,4 +136,8 @@ void VirtualMachine::bne(){
             code.setHead(jumpLoc);
         }
     }
+}
+void VirtualMachine::jmp() {
+    cluint jumpLoc = code.nextUint();
+    code.setHead(jumpLoc);
 }

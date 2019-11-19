@@ -127,6 +127,7 @@ void Compiler::ifStatement() {
     code.rewriteUint(code.size(), closureStack.top()); // set jump offset
     closureStack.pop();
 }
+
 void Compiler::expressionStatement() {
     // TODO IMPLEMENT
 }
