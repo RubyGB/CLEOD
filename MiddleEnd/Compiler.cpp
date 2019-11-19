@@ -105,6 +105,9 @@ void Compiler::statement() {
     if(match(TokenType::IF)) {
         ifStatement();
     }
+    if(match(TokenType::WHILE)){
+        whileStatement();
+    }
 }
 
 void Compiler::printStatement() {
