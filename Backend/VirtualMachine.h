@@ -58,6 +58,8 @@ private:
     void divide();
     void lt();
     void bne();
+    void jmp();
+
 public:
     VirtualMachine(Bytecode &code);
 

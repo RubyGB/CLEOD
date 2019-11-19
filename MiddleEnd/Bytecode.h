@@ -37,6 +37,7 @@ enum class Opcode : byte {
     //  Boolean stuff
     LT,
     BNE,
+    JMP,
 
     //  For statements:
     POP,

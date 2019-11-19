@@ -4,7 +4,6 @@
 
 #include "Scanner.h"
 
-
 Scanner::Scanner(const std::string &sourceFileName) {
     c = '0';
     src = std::ifstream(sourceFileName);
@@ -134,8 +133,6 @@ void Scanner::numberFunc(){
     }
     addToken(TokenType::LIT_NUMBER);
 }
-
-
 
 void Scanner::identifier(){
     while (isalnum(peek())) {advance();} // first val must be num (solved in switch case, through isalpha function)
