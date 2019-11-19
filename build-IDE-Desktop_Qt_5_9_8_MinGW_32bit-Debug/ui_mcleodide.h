@@ -50,7 +50,7 @@ public:
         McleodIDE->addToolBar(Qt::TopToolBarArea, toolBar);
         menubar = new QMenuBar(McleodIDE);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 728, 22));
+        menubar->setGeometry(QRect(0, 0, 728, 17));
         McleodIDE->setMenuBar(menubar);
 
         retranslateUi(McleodIDE);
