@@ -4,7 +4,6 @@
 
 #include "Scanner.h"
 
-
 Scanner::Scanner(const std::string &sourceFileName) {
     c = '0';
     src = std::ifstream(sourceFileName);
