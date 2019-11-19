@@ -89,7 +89,7 @@ void McleodIDE::SetupMenu(){
     editMenu->addAction("Copy",this, SLOT(Copy()),Qt::CTRL + Qt::Key_C);
     editMenu->addAction("Paste",this, SLOT(Paste()),Qt::CTRL + Qt::Key_V);
     editMenu->addAction("Undo",this, SLOT(Undo()));
-    editMenu->addAction("Undo",this, SLOT(Redo()));
+    editMenu->addAction("Redo",this, SLOT(Redo()));
 
     viewMenu->addAction(file_explorer_dock->toggleViewAction());
     viewMenu->addAction(opened_docs_dock->toggleViewAction());
