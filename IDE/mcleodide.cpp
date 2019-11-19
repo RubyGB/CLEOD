@@ -70,20 +70,20 @@ void McleodIDE::CreateDocWindows(){
     opened_docs_dock->hide();
     addDockWidget(Qt::RightDockWidgetArea, opened_docs_dock);
 
-    QDockWidget *dock = new QDockWidget(tr("console output"), this);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    consoleOutput = new QListWidget(dock);
-    consoleOutput->addItems(QStringList() << "need to deal with this later, just trying to build console right now");
-    dock->setWidget(consoleOutput);
-    addDockWidget(Qt::RightDockWidgetArea, dock);
-    viewMenu->addAction(dock->toggleViewAction());
+//    QDockWidget *dock = new QDockWidget(tr("console output"), this);
+//    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+//    consoleOutput = new QListWidget(dock);
+//    consoleOutput->addItems(QStringList() << "need to deal with this later, just trying to build console right now");
+//    dock->setWidget(consoleOutput);
+//    addDockWidget(Qt::RightDockWidgetArea, dock);
+//    viewMenu->addAction(dock->toggleViewAction());
 
-    dock = new QDockWidget(tr("file directory"), this);
-    fileDirectory = new QListWidget(dock);
-    fileDirectory->addItems(QStringList() << "need to deal with this later");
-    dock->setWidget(fileDirectory);
-    addDockWidget(Qt::RightDockWidgetArea, dock);
-    viewMenu->addAction(dock->toggleViewAction());
+//    dock = new QDockWidget(tr("file directory"), this);
+//    fileDirectory = new QListWidget(dock);
+//    fileDirectory->addItems(QStringList() << "need to deal with this later");
+//    dock->setWidget(fileDirectory);
+//    addDockWidget(Qt::RightDockWidgetArea, dock);
+//    viewMenu->addAction(dock->toggleViewAction());
 }
 
 void McleodIDE::SetupMenu(){
