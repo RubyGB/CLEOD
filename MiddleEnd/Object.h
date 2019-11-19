@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+//#include "../Backend/VirtualMachine.h"
 
 //  Can't #include VirtualMachine.h because of cyclic referencing
 struct Data;
@@ -24,6 +25,8 @@ struct Object {
 //  public inheritance allows casting from derived instance to base
 struct VarObject : public Object {
     Data *data;
+
+    VarObject(Data *d) : Object(ObjectType::VAR), data(d) {}
 };
 
 struct StringObject : public Object {

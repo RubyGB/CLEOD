@@ -41,6 +41,7 @@ private:
     Bytecode code;
     std::stack<Data> stack;
     GarbageCollector gc;
+    std::unordered_map<std::string, VarObject *> varIDHashTable;
 
     //  All printing output goes here - later we will make this a reference to the GUI console
     std::ostream &out = std::cout;

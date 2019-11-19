@@ -48,6 +48,7 @@ Data VirtualMachine::pop() {
 void VirtualMachine::pushNextLiteral() {
     DataType dt = code.nextDataType();
     StringObject *so;
+    VarObject *vo;
     switch(dt) {
         case DataType::DOUBLE:
             stack.push(Data(code.nextDouble()));
@@ -59,6 +60,13 @@ void VirtualMachine::pushNextLiteral() {
             break;
         case DataType::BOOL:
             stack.push(Data(code.nextBool()));
+            break;
+        case DataType::VAR:
+            //  assumes this was preceded by a push literal of the assigned data type
+            vo = new VarObject(new Data(pop()));
+            gc.add(vo);
+            varIDHashTable[code.nextString()] = vo;
+            stack.push(Data(vo));
             break;
         default:
             break;
@@ -80,6 +88,9 @@ void VirtualMachine::print() {
                 out << "true" << std::endl;
             else
                 out << "false" << std::endl;
+            break;
+        case DataType::VAR:
+            //  dereference data contained by variable and print
         default:
             break;
     }
