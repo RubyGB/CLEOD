@@ -71,7 +71,6 @@ private slots:
     void Undo();
     void Redo();
 
-
 private:
     Ui::McleodIDE *ui;
     QString currentFile = "";
@@ -88,5 +87,11 @@ private:
     void SetupFileDock();
     void CreateDocWindows();
     void SetupMenu();
+
+    QTextEdit *textEdit;
+    QListWidget *consoleOutput;
+    QListWidget *fileDirectory;
+
+    QMenu *viewMenu;
 };
 #endif // MCLEODIDE_H
