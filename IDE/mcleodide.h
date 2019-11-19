@@ -89,4 +89,24 @@ private:
     void CreateDocWindows();
     void SetupMenu();
 };
+
+class consoleOutput: public QMainWindow {
+    Q_OBJECT
+
+public:
+    consoleOutput();
+private slots:
+
+private:
+    void createActions();
+    void createStatusBar();
+    void createDockWindows();
+
+    QTextEdit *textEdit;
+    QListWidget *customerList;
+    QListWidget *paragraphsList;
+
+    QMenu *viewMenu;
+};
+
 #endif // MCLEODIDE_H
