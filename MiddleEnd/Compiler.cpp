@@ -128,6 +128,25 @@ void Compiler::ifStatement() {
     closureStack.pop();
 }
 
+void Compiler::whileStatement(){
+    consume(TokenType::LEFT_PAREN, "Expect \"(\" after if.");
+    grouping();
+    uint pc = code.size();
+    code.writeOpcode(Opcode::BNE);
+    closureStack.push(code.size()); // store current pc for rewriting
+    code.writeUint(-1); //  temporary value
+
+    consume(TokenType::LEFT_BRACE, "Expect \"{\" to scope if statement block.");
+    while(current->type != TokenType::RIGHT_BRACE) {
+        declaration();
+    }
+    code.writeOpcode(Opcode::JMP);
+    code.writeUint(pc);
+    consume(TokenType::RIGHT_BRACE, "Expect closing \"}\" for if statement.");
+    code.rewriteUint(code.size(), closureStack.top()); // set jump offset
+    closureStack.pop();
+}
+
 void Compiler::expressionStatement() {
     // TODO IMPLEMENT
 }
