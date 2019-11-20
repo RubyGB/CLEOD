@@ -41,6 +41,9 @@ enum class Opcode : byte {
 
     //  For statements:
     POP,
+
+    //  Variables
+    ASSN,
 };
 
 enum class DataType : byte {

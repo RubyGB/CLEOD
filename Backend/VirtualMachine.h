@@ -50,7 +50,7 @@ private:
     Data pop();
 
     void pushNextLiteral(); // push from bytecode
-    void print(); // pop the top value off the stack and print it
+    void print(Data top); // pop the top value off the stack and print it using this function
 
     void add();
     void subtract();
@@ -59,6 +59,7 @@ private:
     void lt();
     void bne();
     void jmp();
+    void assn();
 
 public:
     VirtualMachine(Bytecode &code);

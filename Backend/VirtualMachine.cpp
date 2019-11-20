@@ -13,7 +13,7 @@ void VirtualMachine::execute() {
             case Opcode::LITERAL:
                 pushNextLiteral(); break;
             case Opcode::PRINT:
-                print(); break;
+                print(pop()); break;
             case Opcode::ADD:
                 add(); break;
             case Opcode::SUBTRACT:
@@ -28,6 +28,8 @@ void VirtualMachine::execute() {
                 bne(); break;
             case Opcode::JMP:
                 jmp(); break;
+            case Opcode::ASSN:
+                assn(); break;
             default:
                 break;
         }
@@ -64,10 +66,8 @@ void VirtualMachine::pushNextLiteral() {
             stack.push(Data(code.nextBool()));
             break;
         case DataType::VAR:
-            //  assumes this was preceded by a push literal of the assigned data type
-            vo = new VarObject(new Data(pop()));
-            gc.add(vo);
-            varIDHashTable[code.nextString()] = vo;
+            //  comes with string as ID
+            vo = varIDHashTable[code.nextString()];
             stack.push(Data(vo));
             break;
         default:
@@ -75,9 +75,9 @@ void VirtualMachine::pushNextLiteral() {
     }
 }
 
-void VirtualMachine::print() {
-    Data top = pop();
+void VirtualMachine::print(Data top) {
     StringObject *so;
+    VarObject *vo;
     switch(top.type) {
         case DataType::DOUBLE:
             out << top.data.d << std::endl; break;
@@ -93,6 +93,8 @@ void VirtualMachine::print() {
             break;
         case DataType::VAR:
             //  dereference data contained by variable and print
+            vo = dynamic_cast<VarObject *>(top.data.o);
+            print(*vo->data);
         default:
             break;
     }
@@ -151,4 +153,11 @@ void VirtualMachine::bne(){
 void VirtualMachine::jmp() {
     cluint jumpLoc = code.nextUint();
     code.setHead(jumpLoc);
+}
+void VirtualMachine::assn() {
+    //  variable assignment
+    //  assumes this was preceded by a push literal of the assigned data type
+    VarObject *vo = new VarObject(new Data(pop()));
+    gc.add(vo);
+    varIDHashTable[code.nextString()] = vo;
 }

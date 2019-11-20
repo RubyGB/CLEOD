@@ -93,10 +93,20 @@ bool Compiler::match(TokenType type) {
     advance();
     return true;
 }
+bool Compiler::checkNext(TokenType type) {
+    auto peek = current + 1;
+    if(peek->type != type) return false;
+    return true;
+}
 
 void Compiler::declaration() {
     //  We'll come back to this later and add variables
-    statement();
+    if(checkNext(TokenType::COLON_EQUAL)) {
+        varDeclaration();
+    }
+    else {
+        statement();
+    }
 }
 void Compiler::statement() {
     if(match(TokenType::PRINT)) {
@@ -105,6 +115,20 @@ void Compiler::statement() {
     if(match(TokenType::IF)) {
         ifStatement();
     }
+}
+
+void Compiler::varDeclaration() {
+    //  current + 1 is guaranteed to be TokenType::COLON_EQUAL
+    //  need to write:
+    //      opcode::literal < data in expression after := >
+    //      opcode::assn variable id
+    std::string variableID = current->data;
+    advance();  //  past LIT_IDENTIFIER
+    advance();  //  past :=
+    expression();
+    consume(TokenType::SEMICOLON, "Expect ';' after variable declaration.");
+    code.writeOpcode(Opcode::ASSN);
+    code.writeString(variableID);
 }
 
 void Compiler::printStatement() {
@@ -188,6 +212,11 @@ void Compiler::binary() {
     }
 }
 
+void Compiler::identifier() {
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::VAR);
+    code.writeString(previous->data);
+}
 void Compiler::number() {
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::DOUBLE);

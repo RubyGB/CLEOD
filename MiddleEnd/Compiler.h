@@ -80,9 +80,12 @@ private:
     void addErrorAt(const Token &where, std::string what);
 
     bool match(TokenType type);
+    bool checkNext(TokenType type);
 
     void declaration();
     void statement();
+
+    void varDeclaration();
 
     void printStatement();
     void expressionStatement();
@@ -93,6 +96,7 @@ private:
     void grouping();
     void unary();
     void binary();
+    void identifier();
     void number();
     void cleodBoolean(); // compliation of boolean - had to name it cleodBoolean, boolean defined in fragment.cpp
     void string();
@@ -120,7 +124,7 @@ private:
             {TokenType::GREATER_EQUAL,  {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LESS,           {nullptr, &Compiler::binary, Precedence::PREC_COMPARISON}},
             {TokenType::LESS_EQUAL,     {nullptr,            nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_IDENTIFIER, {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_IDENTIFIER, {&Compiler::identifier,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_NUMBER,   {&Compiler::number,  nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_STRING,     {&Compiler::string,           nullptr, Precedence::PREC_NONE}},
             {TokenType::AND,            {nullptr,            nullptr, Precedence::PREC_NONE}},

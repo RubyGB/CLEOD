@@ -57,6 +57,9 @@ void Scanner::scanToken() {
             if (match('=')){addToken(TokenType::GREATER_EQUAL);}
             else {addToken(TokenType::GREATER);}
             break;
+        case ':':
+            if(match('=')){addToken(TokenType::COLON_EQUAL);}
+            break;
         // comment case - long lexemes
         case '#':
             while (peek() != '\n' && !isAtEnd()){advance();} break;
@@ -138,7 +141,12 @@ void Scanner::identifier(){
     while (isalnum(peek())) {advance();} // first val must be num (solved in switch case, through isalpha function)
     // checking for keywords
     std::string txt = source.substr(start, current - start);
-    TokenType type = keywords[txt];
-    addToken(type);
+    auto reserved = keywords.find(txt);
+    if(reserved != keywords.end()) {
+        addToken(reserved->second);
+    }
+    else {
+        addToken(TokenType::LIT_IDENTIFIER);
+    }
 }
 
