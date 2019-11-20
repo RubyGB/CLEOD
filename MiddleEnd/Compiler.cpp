@@ -250,7 +250,8 @@ void Compiler::cleodBoolean(){
 void Compiler::string(){
     code.writeOpcode(Opcode::LITERAL);
     code.writeDataType(DataType::STRING);
-    code.writeString(previous->data);
+    std::string withoutQuotes = previous->data.substr(1, previous->data.length() - 2);
+    code.writeString(withoutQuotes);
 }
 
 PrattRule Compiler::getRule(TokenType type) const {

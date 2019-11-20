@@ -113,6 +113,44 @@ void VirtualMachine::add() {
         double result = d1.data.d + d2.data.d;
         stack.push(Data(result));
     }
+    else if(d1.type == DataType::STRING) {
+        StringObject *so = dynamic_cast<StringObject *>(d1.data.o);
+        concat(so, d2, [](std::string s1, std::string s2) { return s1 + s2; });
+    }
+    else if(d2.type == DataType::STRING) {
+        StringObject *so = dynamic_cast<StringObject *>(d2.data.o);
+        concat(so, d1, [](std::string s1, std::string s2) { return s2 + s1; });
+    }
+}
+
+//  concat lambda determines how the two strings are concatenated - for our implementation, this just means a + b vs. b + a.
+void VirtualMachine::concat(StringObject *so, Data &d, std::function<std::string (std::string, std::string)> concatLambda) {
+    StringObject *cat;
+    if(d.type == DataType::STRING) {
+        StringObject *so2 = dynamic_cast<StringObject *>(d.data.o);
+        cat = new StringObject(concatLambda(so->s, so2->s));
+        //  need this, but it will cause issues with var->data recursion. we have memory leaks, albeit small ones.
+        //gc.clean(so2);
+    }
+    if(d.type == DataType::DOUBLE) {
+        cat = new StringObject(concatLambda(so->s, std::to_string(d.data.d)));
+    }
+    if(d.type == DataType::BOOL) {
+        if(d.data.b)
+            cat = new StringObject(concatLambda(so->s, "true"));
+        else
+            cat = new StringObject(concatLambda(so->s, "false"));
+    }
+    if(d.type == DataType::VAR) {
+        VarObject *vo = dynamic_cast<VarObject *>(d.data.o);
+        Data dobj = *vo->data;
+        //  yay recursion!
+        concat(so, dobj, concatLambda);
+    }
+
+    gc.clean(so);
+    gc.add(cat);
+    stack.push(Data(cat));
 }
 void VirtualMachine::subtract() {
     Data d2 = pop();

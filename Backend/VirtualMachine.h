@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stack>
+#include <functional>
 #include <iostream>
 
 #include "../MiddleEnd/Bytecode.h"
@@ -53,6 +54,8 @@ private:
     void print(Data top); // pop the top value off the stack and print it using this function
 
     void add();
+    void concat(StringObject *so, Data &d, std::function<std::string (std::string, std::string)> concatLambda);
+
     void subtract();
     void multiply();
     void divide();
