@@ -8,8 +8,11 @@ std::string ExecutionException::what() const {
 
 VirtualMachine::VirtualMachine(Bytecode &code) : code(code) {}
 void VirtualMachine::execute() {
+    Opcode next;
     while(!code.atEnd()) {
-        switch(code.nextOpcode()) {
+        next = code.nextOpcode();
+        //std::cout << "OPCODE: " + std::to_string((int)next) << std::endl;
+        switch(next) {
             case Opcode::LITERAL:
                 pushNextLiteral(); break;
             case Opcode::PRINT:
@@ -30,6 +33,8 @@ void VirtualMachine::execute() {
                 jmp(); break;
             case Opcode::ASSN:
                 assn(); break;
+            case Opcode::REASSN:
+                reassn(); break;
             default:
                 break;
         }
@@ -68,7 +73,7 @@ void VirtualMachine::pushNextLiteral() {
         case DataType::VAR:
             //  comes with string as ID
             vo = varIDHashTable[code.nextString()];
-            stack.push(Data(vo));
+            stack.push(*vo->data);
             break;
         default:
             break;
@@ -146,13 +151,21 @@ void VirtualMachine::bne(){
     Data d1 = pop();
     if (d1.type == DataType::BOOL){
         if (!d1.data.b){
-            code.setHead(jumpLoc);
+            try {
+                code.setHead(jumpLoc);
+            } catch(ByteOutOfRangeException &be) {
+                code.setEnd();
+            }
         }
     }
 }
 void VirtualMachine::jmp() {
     cluint jumpLoc = code.nextUint();
-    code.setHead(jumpLoc);
+    try {
+        code.setHead(jumpLoc);
+    } catch(ByteOutOfRangeException &be) {
+        code.setEnd();
+    }
 }
 void VirtualMachine::assn() {
     //  variable assignment
@@ -160,4 +173,18 @@ void VirtualMachine::assn() {
     VarObject *vo = new VarObject(new Data(pop()));
     gc.add(vo);
     varIDHashTable[code.nextString()] = vo;
+}
+void VirtualMachine::reassn() {
+    //  variable reassignment
+    //  stack should have new value on top
+    Data d = pop();
+
+    std::string id = code.nextString();
+    auto var = varIDHashTable.find(id);
+    if(var == varIDHashTable.end()) {
+        throw ExecutionException("Attempted to reassign undeclared variable with identifier: " + id);
+    }
+    VarObject *vo = var->second;
+    delete vo->data;
+    vo->data = new Data(d);
 }

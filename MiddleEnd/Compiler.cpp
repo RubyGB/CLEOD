@@ -104,6 +104,9 @@ void Compiler::declaration() {
     if(checkNext(TokenType::COLON_EQUAL)) {
         varDeclaration();
     }
+    else if(checkNext(TokenType::EQUAL)) {
+        reassignStatement();
+    }
     else {
         statement();
     }
@@ -131,6 +134,16 @@ void Compiler::varDeclaration() {
     expression();
     consume(TokenType::SEMICOLON, "Expect ';' after variable declaration.");
     code.writeOpcode(Opcode::ASSN);
+    code.writeString(variableID);
+}
+void Compiler::reassignStatement() {
+    //  current + 1 is guaranteed to be TokenType::EQUAL
+    std::string variableID = current->data;
+    advance();  //  past LIT_IDENTIFIER
+    advance();  //  past =
+    expression();   // parse with precedence PREC_ASSIGNMENT
+    consume(TokenType::SEMICOLON, "Expect ';' after variable reassignment.");
+    code.writeOpcode(Opcode::REASSN);
     code.writeString(variableID);
 }
 

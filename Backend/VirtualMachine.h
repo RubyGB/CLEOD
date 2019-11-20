@@ -60,6 +60,7 @@ private:
     void bne();
     void jmp();
     void assn();
+    void reassn();
 
 public:
     VirtualMachine(Bytecode &code);

@@ -86,6 +86,7 @@ private:
     void statement();
 
     void varDeclaration();
+    void reassignStatement();
 
     void printStatement();
     void expressionStatement();
@@ -96,6 +97,7 @@ private:
     void grouping();
     void unary();
     void binary();
+
     void identifier();
     void number();
     void cleodBoolean(); // compliation of boolean - had to name it cleodBoolean, boolean defined in fragment.cpp

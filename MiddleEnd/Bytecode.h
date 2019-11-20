@@ -43,7 +43,7 @@ enum class Opcode : byte {
     POP,
 
     //  Variables
-    ASSN,
+    ASSN, REASSN,
 };
 
 enum class DataType : byte {
@@ -138,6 +138,7 @@ public:
     void stepForward(uint amount);
 
     bool atEnd() const;
+    void setEnd();
 
     uint getPC() const;
 };

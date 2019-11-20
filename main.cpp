@@ -25,7 +25,12 @@ int main() {
     Bytecode bc = c.compile();
     std::cout << "Executing..." << std::endl;
     VirtualMachine vm(bc);
-    vm.execute();
+    try {
+        vm.execute();
+    }
+    catch(ByteOutOfRangeException &be) {
+        std::cout << be.what() << std::endl;
+    }
 
     /*
     std::vector<Token> mockTokens = {

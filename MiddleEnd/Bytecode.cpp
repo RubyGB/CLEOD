@@ -213,6 +213,9 @@ void Bytecode::stepForward(uint amount) {
 bool Bytecode::atEnd() const {
     return (pc >= code.size());
 }
+void Bytecode::setEnd() {
+    pc = code.size();
+}
 
 uint Bytecode::getPC() const {
     return pc;
