@@ -115,6 +115,9 @@ void Compiler::statement() {
     if(match(TokenType::IF)) {
         ifStatement();
     }
+    if(match(TokenType::WHILE)){
+        whileStatement();
+    }
 }
 
 void Compiler::varDeclaration() {
@@ -154,8 +157,8 @@ void Compiler::ifStatement() {
 
 void Compiler::whileStatement(){
     consume(TokenType::LEFT_PAREN, "Expect \"(\" after if.");
-    grouping();
     uint pc = code.size();
+    grouping();
     code.writeOpcode(Opcode::BNE);
     closureStack.push(code.size()); // store current pc for rewriting
     code.writeUint(-1); //  temporary value
