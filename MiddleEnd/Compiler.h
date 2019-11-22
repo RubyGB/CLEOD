@@ -91,6 +91,7 @@ private:
     void printStatement();
     void expressionStatement();
     void ifStatement();
+    void elseStatement();
     void whileStatement();
 
     void expression();

@@ -30,6 +30,7 @@ private:
             {"false", TokenType::FALSE},
             {"print", TokenType::PRINT},
             {"if", TokenType::IF},
+            {"else", TokenType::ELSE},
             {"for", TokenType::FOR},
             {"return", TokenType::RETURN},
             {"while", TokenType::WHILE},

@@ -164,6 +164,29 @@ void Compiler::ifStatement() {
         declaration();
     }
     consume(TokenType::RIGHT_BRACE, "Expect closing \"}\" for if statement.");
+    if (current->type == TokenType::ELSE) elseStatement();
+    else {
+        code.rewriteUint(code.size(), closureStack.top()); // set jump offset
+        closureStack.pop();
+    }
+}
+
+void Compiler::elseStatement(){
+    advance();
+    code.writeOpcode(Opcode::JMP);
+
+    code.rewriteUint(code.size(), closureStack.top()); // set jump offset
+    closureStack.pop();
+
+    // for JMP
+    closureStack.push(code.size()); // store current pc for rewriting
+    code.writeUint(-1); //  temporary value
+
+    consume(TokenType::LEFT_BRACE, "Expect \"{\" to scope else statement block.");
+    while(current->type != TokenType::RIGHT_BRACE) {
+        declaration();
+    }
+    consume(TokenType::RIGHT_BRACE, "Expect closing \"}\" for else statement.");
     code.rewriteUint(code.size(), closureStack.top()); // set jump offset
     closureStack.pop();
 }
