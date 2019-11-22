@@ -1,0 +1,12 @@
+debug/main.o
+debug/mcleodide.o
+debug/texteditor.o
+debug/Scanner.o
+debug/Compiler.o
+debug/VirtualMachine.o
+debug/Token.o
+debug/Bytecode.o
+debug/GarbageCollector.o
+debug/qrc_resource.o
+debug/moc_mcleodide.o
+debug/moc_texteditor.o

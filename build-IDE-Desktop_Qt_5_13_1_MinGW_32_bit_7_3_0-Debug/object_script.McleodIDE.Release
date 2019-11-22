@@ -1,0 +1,12 @@
+release/main.o
+release/mcleodide.o
+release/texteditor.o
+release/Scanner.o
+release/Compiler.o
+release/VirtualMachine.o
+release/Token.o
+release/Bytecode.o
+release/GarbageCollector.o
+release/qrc_resource.o
+release/moc_mcleodide.o
+release/moc_texteditor.o
