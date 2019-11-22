@@ -36,7 +36,7 @@ void VirtualMachine::execute() {
             case Opcode::REASSN:
                 reassn(); break;
             default:
-                break;
+                throw ExecutionException("Unrecognized Opcode: " + std::to_string((int)next));
         }
     }
 

@@ -175,12 +175,14 @@ void Compiler::elseStatement(){
     advance();
     code.writeOpcode(Opcode::JMP);
 
-    code.rewriteUint(code.size(), closureStack.top()); // set jump offset
+    uint ifpc = closureStack.top();
     closureStack.pop();
 
     // for JMP
     closureStack.push(code.size()); // store current pc for rewriting
     code.writeUint(-1); //  temporary value
+
+    code.rewriteUint(code.size(), ifpc); // set jump offset
 
     consume(TokenType::LEFT_BRACE, "Expect \"{\" to scope else statement block.");
     while(current->type != TokenType::RIGHT_BRACE) {
