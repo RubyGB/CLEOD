@@ -71,6 +71,8 @@ private slots:
     void Undo();
     void Redo();
 
+    void CompileAndExecute();
+
 private:
     Ui::McleodIDE *ui;
     QString currentFile = "";

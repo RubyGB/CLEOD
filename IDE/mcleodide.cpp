@@ -1,6 +1,10 @@
 #include "mcleodide.h"
 #include "ui_mcleodide.h"
 
+#include "Frontend/Scanner.h"
+#include "MiddleEnd/Compiler.h"
+#include "Backend/VirtualMachine.h"
+
 McleodIDE::McleodIDE(QWidget *parent) : QMainWindow(parent), ui(new Ui::McleodIDE) {
     ui->setupUi(this);
     setAcceptDrops(true);
@@ -96,6 +100,8 @@ void McleodIDE::SetupMenu(){
     fileMenu->addSeparator();
     fileMenu->addAction("Save File",  this, SLOT(SaveFile()),Qt::CTRL + Qt::Key_S);
     fileMenu->addAction("Save As...", this, SLOT(SaveFileAs()));
+    fileMenu->addSeparator();
+    fileMenu->addAction("Compile & Execute", this, SLOT(CompileAndExecute()));
     fileMenu->addSeparator();
     fileMenu->addAction("Close", this, SLOT(Close()));
 
@@ -283,4 +289,12 @@ void McleodIDE::Undo(){
 }
 void McleodIDE::Redo(){
     ((TextEditor*)tabs->currentWidget())->redo();
+}
+
+void McleodIDE::CompileAndExecute() {
+    Scanner s(tabs->tabToolTip(tabs->currentIndex()).toStdString());
+    Compiler c(s.scanTokens());
+    Bytecode bc = c.compile();
+    VirtualMachine vm(bc);
+    vm.execute();
 }

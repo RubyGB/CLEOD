@@ -1,0 +1,7 @@
+print 2;
+
+myVar := "yeehaw!";
+while(true) {
+	myVar = myVar + 1;
+	print myVar;
+}
