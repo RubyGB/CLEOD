@@ -51,10 +51,12 @@ void Scanner::scanToken() {
             break;
         case '<':
             if (match('=')){addToken(TokenType::LESS_EQUAL);}
+            else if(match('<')){addToken(TokenType::LEFT_CHEVRON);}
             else {addToken(TokenType::LESS);}
             break;
         case '>':
             if (match('=')){addToken(TokenType::GREATER_EQUAL);}
+            else if(match('>')){addToken(TokenType::RIGHT_CHEVRON);}
             else {addToken(TokenType::GREATER);}
             break;
         case ':':

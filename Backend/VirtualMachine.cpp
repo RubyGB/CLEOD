@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "VirtualMachine.h"
 
 ExecutionException::ExecutionException(std::string reason) : reason(reason) {}
@@ -35,6 +36,8 @@ void VirtualMachine::execute() {
                 assn(); break;
             case Opcode::REASSN:
                 reassn(); break;
+            case Opcode::ENDARR:
+                endarr(); break;
             default:
                 throw ExecutionException("Unrecognized Opcode: " + std::to_string((int)next));
         }
@@ -83,6 +86,7 @@ void VirtualMachine::pushNextLiteral() {
 void VirtualMachine::print(Data top) {
     StringObject *so;
     VarObject *vo;
+    ArrayObject *ao;
     switch(top.type) {
         case DataType::DOUBLE:
             out << top.data.d << std::endl; break;
@@ -100,6 +104,11 @@ void VirtualMachine::print(Data top) {
             //  dereference data contained by variable and print
             vo = dynamic_cast<VarObject *>(top.data.o);
             print(*vo->data);
+        case DataType::ARRAY:
+            ao = dynamic_cast<ArrayObject *>(top.data.o);
+            for(Data *d : ao->elements) {
+                print(*d);
+            }
         default:
             break;
     }
@@ -225,4 +234,16 @@ void VirtualMachine::reassn() {
     VarObject *vo = var->second;
     delete vo->data;
     vo->data = new Data(d);
+}
+void VirtualMachine::endarr() {
+    //  pop all values off the stack, and add them to our array!
+    ArrayObject *ao = new ArrayObject();
+    gc.add(ao);
+
+    while(!stack.empty()) {
+        ao->elements.push_back(new Data(pop()));
+    }
+    std::reverse(ao->elements.begin(), ao->elements.end());
+
+    stack.push(Data(ao));
 }

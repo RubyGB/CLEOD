@@ -39,15 +39,15 @@ enum class Opcode : byte {
     BNE,
     JMP,
 
-    //  For statements:
-    POP,
-
     //  Variables
     ASSN, REASSN,
+
+    //  Arrays
+    ENDARR,
 };
 
 enum class DataType : byte {
-    DOUBLE, BOOL, STRING, OPCODE, VAR, INVALID
+    DOUBLE, BOOL, STRING, ARRAY, OPCODE, VAR, INVALID
 };
 
 // Error class for when user tries to read data and hits eof for the bytestream/bytecode

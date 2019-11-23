@@ -125,9 +125,6 @@ void Compiler::statement() {
 
 void Compiler::varDeclaration() {
     //  current + 1 is guaranteed to be TokenType::COLON_EQUAL
-    //  need to write:
-    //      opcode::literal < data in expression after := >
-    //      opcode::assn variable id
     std::string variableID = current->data;
     advance();  //  past LIT_IDENTIFIER
     advance();  //  past :=
@@ -277,6 +274,22 @@ void Compiler::string(){
     code.writeDataType(DataType::STRING);
     std::string withoutQuotes = previous->data.substr(1, previous->data.length() - 2);
     code.writeString(withoutQuotes);
+}
+
+void Compiler::array() {
+    code.writeOpcode(Opcode::LITERAL);
+    code.writeDataType(DataType::ARRAY);
+
+    //  compile all inside literals
+    while(true) {
+        expression();
+        if(match(TokenType::RIGHT_CHEVRON))
+            break;
+        if(!match(TokenType::COMMA)) {
+            addErrorAt(*current, "Expect ',' between array elements.");
+        }
+    }
+    code.writeOpcode(Opcode::ENDARR);
 }
 
 PrattRule Compiler::getRule(TokenType type) const {
