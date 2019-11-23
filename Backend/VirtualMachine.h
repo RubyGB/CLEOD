@@ -66,6 +66,7 @@ private:
     void assn();
     void reassn();
     void endarr();
+    void ind();
 
 public:
     VirtualMachine(Bytecode &code);

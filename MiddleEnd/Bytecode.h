@@ -44,6 +44,7 @@ enum class Opcode : byte {
 
     //  Arrays
     ENDARR,
+    IND,
 };
 
 enum class DataType : byte {

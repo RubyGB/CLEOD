@@ -11,7 +11,7 @@
 
 enum class TokenType {
     // Single character:
-    LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
+    LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE, LEFT_BRACKET, RIGHT_BRACKET,
     COMMA, DOT, MINUS, PLUS, SEMICOLON, SLASH, STAR,
 
     // One or more characters:
@@ -58,6 +58,7 @@ struct Token {
 const std::unordered_map<TokenType, std::string> TOKEN_TYPE_NAMES = {
         {TokenType::LEFT_PAREN, "LEFT_PAREN"}, {TokenType::RIGHT_PAREN, "RIGHT_PAREN"},
         {TokenType::LEFT_BRACE, "LEFT_BRACE"}, {TokenType::RIGHT_BRACE, "RIGHT_BRACE"},
+        {TokenType::LEFT_BRACKET, "LEFT_BRACKET"}, {TokenType::RIGHT_BRACKET, "RIGHT_BRACKET"},
         {TokenType::COMMA, "COMMA"}, {TokenType::DOT, "DOT"},
         {TokenType::MINUS, "MINUS"}, {TokenType::PLUS, "PLUS"},
         {TokenType::SEMICOLON, "SEMICOLON"},

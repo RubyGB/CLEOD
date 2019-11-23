@@ -247,3 +247,12 @@ void VirtualMachine::endarr() {
 
     stack.push(Data(ao));
 }
+void VirtualMachine::ind() {
+    //  Opcode::IND is suffixed with int operand acting as array index.
+    //      Comes AFTER array is pushed to the stack.
+    ArrayObject *ao = dynamic_cast<ArrayObject *>(pop().data.o);
+
+    int index = code.nextInt() % ao->elements.size();
+
+    // unfinished
+}
