@@ -5,7 +5,6 @@
 #include <QGridLayout>
 #include <QWidget>
 #include <QTabWidget>
-//#include <QSyntaxHighlighter>
 #include <QString>
 #include <QMenu>
 #include <QMessageBox>
