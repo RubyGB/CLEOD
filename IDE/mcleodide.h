@@ -70,6 +70,7 @@ private slots:
     void Undo();
     void Redo();
 
+    void CompileAndExecute();
 
 private:
     Ui::McleodIDE *ui;
@@ -87,5 +88,7 @@ private:
     void SetupFileDock();
     void CreateDocWindows();
     void SetupMenu();
+
+    QMenu *viewMenu;
 };
 #endif // MCLEODIDE_H

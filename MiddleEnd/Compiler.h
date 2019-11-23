@@ -5,6 +5,7 @@
 #ifndef CLEOD_COMPILER_H
 #define CLEOD_COMPILER_H
 
+#include <stack>
 #include "../Frontend/Token.h"
 #include "Bytecode.h"
 
@@ -59,6 +60,7 @@ private:
 
     //  The entire job of Compiler is to fill this up, and return a Bytecode(code). Many functions will be accessing it.
     ByteStream code;
+    std::stack<uint> closureStack;
 
     //  If we encounter any error tokens or unexpected tokens (e.g. no closing RIGHT_PAREN after a LEFT_PAREN,
     //      then we push them in here through addErrorAt(). If this is nonempty when we finish compiling,
@@ -78,17 +80,26 @@ private:
     void addErrorAt(const Token &where, std::string what);
 
     bool match(TokenType type);
+    bool checkNext(TokenType type);
 
     void declaration();
     void statement();
 
+    void varDeclaration();
+    void reassignStatement();
+
     void printStatement();
     void expressionStatement();
+    void ifStatement();
+    void elseStatement();
+    void whileStatement();
 
     void expression();
     void grouping();
     void unary();
     void binary();
+
+    void identifier();
     void number();
     void cleodBoolean(); // compliation of boolean - had to name it cleodBoolean, boolean defined in fragment.cpp
     void string();
@@ -114,9 +125,9 @@ private:
             {TokenType::EQUAL,          {nullptr, nullptr, Precedence::PREC_NONE}},
             {TokenType::GREATER,        {nullptr,            nullptr, Precedence::PREC_NONE}},
             {TokenType::GREATER_EQUAL,  {nullptr,            nullptr, Precedence::PREC_NONE}},
-            {TokenType::LESS,           {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LESS,           {nullptr, &Compiler::binary, Precedence::PREC_COMPARISON}},
             {TokenType::LESS_EQUAL,     {nullptr,            nullptr, Precedence::PREC_NONE}},
-            {TokenType::LIT_IDENTIFIER, {nullptr,            nullptr, Precedence::PREC_NONE}},
+            {TokenType::LIT_IDENTIFIER, {&Compiler::identifier,            nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_NUMBER,   {&Compiler::number,  nullptr, Precedence::PREC_NONE}},
             {TokenType::LIT_STRING,     {&Compiler::string,           nullptr, Precedence::PREC_NONE}},
             {TokenType::AND,            {nullptr,            nullptr, Precedence::PREC_NONE}},

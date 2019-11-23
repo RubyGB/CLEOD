@@ -34,8 +34,16 @@ enum class Opcode : byte {
     MULTIPLY,
     DIVIDE,
 
+    //  Boolean stuff
+    LT,
+    BNE,
+    JMP,
+
     //  For statements:
     POP,
+
+    //  Variables
+    ASSN, REASSN,
 };
 
 enum class DataType : byte {
@@ -89,6 +97,9 @@ public:
     DataType readDataType(uint pos) const;
     void writeDataType(DataType val);
 
+    //  used for branching
+    void rewriteUint(cluint val, uint pos);
+
     byte operator [](uint i) const;
     byte &operator [](uint i);
     void operator <<(byte b);
@@ -127,6 +138,9 @@ public:
     void stepForward(uint amount);
 
     bool atEnd() const;
+    void setEnd();
+
+    uint getPC() const;
 };
 
 #endif //CLEOD_BYTECODE_H

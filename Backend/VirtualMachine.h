@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stack>
+#include <functional>
 #include <iostream>
 
 #include "../MiddleEnd/Bytecode.h"
@@ -41,6 +42,7 @@ private:
     Bytecode code;
     std::stack<Data> stack;
     GarbageCollector gc;
+    std::unordered_map<std::string, VarObject *> varIDHashTable;
 
     //  All printing output goes here - later we will make this a reference to the GUI console
     std::ostream &out = std::cout;
@@ -49,12 +51,20 @@ private:
     Data pop();
 
     void pushNextLiteral(); // push from bytecode
-    void print(); // pop the top value off the stack and print it
+    void print(Data top); // pop the top value off the stack and print it using this function
 
     void add();
+    void concat(StringObject *so, Data &d, std::function<std::string (std::string, std::string)> concatLambda);
+
     void subtract();
     void multiply();
     void divide();
+    void lt();
+    void bne();
+    void jmp();
+    void assn();
+    void reassn();
+
 public:
     VirtualMachine(Bytecode &code);
 

@@ -1,6 +1,9 @@
 #include "mcleodide.h"
 #include "ui_mcleodide.h"
 
+#include "Frontend/Scanner.h"
+#include "MiddleEnd/Compiler.h"
+#include "Backend/VirtualMachine.h"
 
 McleodIDE::McleodIDE(QWidget *parent) : QMainWindow(parent), ui(new Ui::McleodIDE) {
     ui->setupUi(this);
@@ -70,6 +73,21 @@ void McleodIDE::CreateDocWindows(){
     opened_docs_dock->setFeatures(QDockWidget::DockWidgetClosable);
     opened_docs_dock->hide();
     addDockWidget(Qt::RightDockWidgetArea, opened_docs_dock);
+
+//    QDockWidget *dock = new QDockWidget(tr("console output"), this);
+//    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+//    consoleOutput = new QListWidget(dock);
+//    consoleOutput->addItems(QStringList() << "need to deal with this later, just trying to build console right now");
+//    dock->setWidget(consoleOutput);
+//    addDockWidget(Qt::RightDockWidgetArea, dock);
+//    viewMenu->addAction(dock->toggleViewAction());
+
+//    dock = new QDockWidget(tr("file directory"), this);
+//    fileDirectory = new QListWidget(dock);
+//    fileDirectory->addItems(QStringList() << "need to deal with this later");
+//    dock->setWidget(fileDirectory);
+//    addDockWidget(Qt::RightDockWidgetArea, dock);
+//    viewMenu->addAction(dock->toggleViewAction());
 }
 
 void McleodIDE::SetupMenu(){
@@ -83,13 +101,15 @@ void McleodIDE::SetupMenu(){
     fileMenu->addAction("Save File",  this, SLOT(SaveFile()),Qt::CTRL + Qt::Key_S);
     fileMenu->addAction("Save As...", this, SLOT(SaveFileAs()));
     fileMenu->addSeparator();
+    fileMenu->addAction("Compile & Execute", this, SLOT(CompileAndExecute()));
+    fileMenu->addSeparator();
     fileMenu->addAction("Close", this, SLOT(Close()));
 
     editMenu->addAction("Cut",this, SLOT(Cut()));
     editMenu->addAction("Copy",this, SLOT(Copy()),Qt::CTRL + Qt::Key_C);
     editMenu->addAction("Paste",this, SLOT(Paste()),Qt::CTRL + Qt::Key_V);
     editMenu->addAction("Undo",this, SLOT(Undo()));
-    editMenu->addAction("Undo",this, SLOT(Redo()));
+    editMenu->addAction("Redo",this, SLOT(Redo()));
 
     viewMenu->addAction(file_explorer_dock->toggleViewAction());
     viewMenu->addAction(opened_docs_dock->toggleViewAction());
@@ -269,4 +289,12 @@ void McleodIDE::Undo(){
 }
 void McleodIDE::Redo(){
     ((TextEditor*)tabs->currentWidget())->redo();
+}
+
+void McleodIDE::CompileAndExecute() {
+    Scanner s(tabs->tabToolTip(tabs->currentIndex()).toStdString());
+    Compiler c(s.scanTokens());
+    Bytecode bc = c.compile();
+    VirtualMachine vm(bc);
+    vm.execute();
 }

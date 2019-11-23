@@ -19,6 +19,7 @@ enum class TokenType {
     EQUAL, EQUAL_EQUAL,
     GREATER, GREATER_EQUAL,
     LESS, LESS_EQUAL,
+    COLON_EQUAL,
 
     // Literals: (someVariable, "hello world!", -8, 7.231, etc.)
     LIT_IDENTIFIER, LIT_STRING, LIT_NUMBER,
@@ -65,6 +66,7 @@ const std::unordered_map<TokenType, std::string> TOKEN_TYPE_NAMES = {
         {TokenType::EQUAL, "EQUAL"}, {TokenType::EQUAL_EQUAL, "EQUAL_EQUAL"},
         {TokenType::GREATER, "GREATER"}, {TokenType::GREATER_EQUAL, "GREATER_EQUAL"},
         {TokenType::LESS, "LESS"}, {TokenType::LESS_EQUAL, "LESS_EQUAL"},
+        {TokenType::COLON_EQUAL, "COLON_EQUAL"},
 
         {TokenType::LIT_IDENTIFIER, "LIT_IDENTIFIER"},
         {TokenType::LIT_STRING, "LIT_STRING"},
