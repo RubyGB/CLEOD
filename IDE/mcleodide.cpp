@@ -8,7 +8,7 @@
 McleodIDE::McleodIDE(QWidget *parent) : QMainWindow(parent), ui(new Ui::McleodIDE) {
     ui->setupUi(this);
     setAcceptDrops(true);
-//    setWindowIcon(QIcon(":/icons/mcleod.png"));
+    setWindowIcon(QIcon(":/mcleod.png"));
     setWindowTitle("Mcleod IDE");
     SetupTabWidget();
     SetupFileDock();

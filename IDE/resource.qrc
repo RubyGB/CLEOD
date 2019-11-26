@@ -2,5 +2,6 @@
     <qresource prefix="/rec">
         <file>icons/undo.png</file>
         <file>icons/redo.png</file>
+        <file>mcleod.png</file>
     </qresource>
 </RCC>
