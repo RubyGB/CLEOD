@@ -24,7 +24,7 @@ int main() {
     Compiler c(tokens);
     Bytecode bc = c.compile();
     std::cout << "Executing..." << std::endl;
-    VirtualMachine vm(bc);
+    VirtualMachine vm(bc, std::cout);
     try {
         vm.execute();
     }

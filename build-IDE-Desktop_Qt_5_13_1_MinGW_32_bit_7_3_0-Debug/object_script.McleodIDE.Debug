@@ -1,3 +1,4 @@
+debug/dialog.o
 debug/main.o
 debug/mcleodide.o
 debug/texteditor.o

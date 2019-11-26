@@ -69,7 +69,7 @@ private:
     void ind();
 
 public:
-    VirtualMachine(Bytecode &code);
+    VirtualMachine(Bytecode &code, std::ostream &output);
 
     //  Executes the bytecode.
     void execute();

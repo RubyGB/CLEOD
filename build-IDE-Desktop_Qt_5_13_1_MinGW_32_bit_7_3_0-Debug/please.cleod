@@ -1,0 +1,16 @@
+# compute e to polynomial precision
+
+precision := 10;
+
+n := 1;
+nfactorial := 1;
+
+e := 0;
+
+while(n < precision) {
+	e = e + 1 / nfactorial;
+	print e;	
+
+	nfactorial = nfactorial * n;
+	n = n + 1;
+}

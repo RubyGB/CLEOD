@@ -1,3 +1,4 @@
+release/dialog.o
 release/main.o
 release/mcleodide.o
 release/texteditor.o

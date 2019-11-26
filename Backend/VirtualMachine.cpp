@@ -7,7 +7,7 @@ std::string ExecutionException::what() const {
     return "CLEOD Virtual Machine encountered an error: " + reason;
 }
 
-VirtualMachine::VirtualMachine(Bytecode &code) : code(code) {}
+VirtualMachine::VirtualMachine(Bytecode &code, std::ostream &output) : code(code), out(output) {}
 void VirtualMachine::execute() {
     Opcode next;
     while(!code.atEnd()) {

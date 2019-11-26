@@ -29,6 +29,8 @@
 #include <QList>
 #include <QUrl>
 
+#include <sstream>
+
 #include "linenumberarea.h"
 #include "texteditor.h"
 #include "dialog.h"
@@ -93,5 +95,7 @@ private:
 
     QMenu *viewMenu;
     Dialog *dialog;
+
+    std::stringstream consoleStream;
 };
 #endif // MCLEODIDE_H

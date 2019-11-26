@@ -289,11 +289,29 @@ void McleodIDE::Redo(){
 }
 
 void McleodIDE::CompileAndExecute() {
+    //  init dialog and clear output stream
     dialog = new Dialog(this);
     dialog->show();
-    Scanner s(tabs->tabToolTip(tabs->currentIndex()).toStdString());
-    Compiler c(s.scanTokens());
-    Bytecode bc = c.compile();
-    VirtualMachine vm(bc);
-    vm.execute();
+    consoleStream.str("");
+
+    try {
+        Scanner s(tabs->tabToolTip(tabs->currentIndex()).toStdString());
+        Compiler c(s.scanTokens());
+        Bytecode bc = c.compile();
+
+        VirtualMachine vm(bc, consoleStream);
+        vm.execute();
+    }
+    catch(ByteOutOfRangeException &be) {
+        consoleStream << be.what() << std::endl;
+    }
+    catch(CompilationException &ce) {
+        consoleStream << ce.what() << std::endl;
+    }
+    catch(ExecutionException &ee) {
+        consoleStream << ee.what() << std::endl;
+    }
+
+    QPlainTextEdit *qpte = dialog->findChild<QPlainTextEdit *>("plainTextEdit");
+    qpte->setPlainText(QString(consoleStream.str().c_str()));
 }
