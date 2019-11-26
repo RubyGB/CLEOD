@@ -1,14 +1,14 @@
 #include "mcleodide.h"
 #include "ui_mcleodide.h"
-
 #include "Frontend/Scanner.h"
 #include "MiddleEnd/Compiler.h"
 #include "Backend/VirtualMachine.h"
+#include "dialog.h"
 
 McleodIDE::McleodIDE(QWidget *parent) : QMainWindow(parent), ui(new Ui::McleodIDE) {
     ui->setupUi(this);
     setAcceptDrops(true);
-    setWindowIcon(QIcon(":/icons/icon.png"));
+//    setWindowIcon(QIcon(":/icons/mcleod.png"));
     setWindowTitle("Mcleod IDE");
     SetupTabWidget();
     SetupFileDock();
@@ -18,7 +18,6 @@ McleodIDE::McleodIDE(QWidget *parent) : QMainWindow(parent), ui(new Ui::McleodID
     setCentralWidget(tabs);
     tabs->currentWidget()->setFocus();
 }
-
 
 McleodIDE::~McleodIDE()
 {
@@ -68,7 +67,6 @@ void McleodIDE::CreateDocWindows(){
     connect(tabs->tabBar(),      SIGNAL(tabCloseRequested(int)),        this, SLOT(UpdateCurrentIndexOnDelete(int)));
 
     opened_docs_dock  = new QDockWidget("Open Documents", this);
-    opened_docs_dock->setFont(QFont("Helvetica", 16));
     opened_docs_dock->setWidget(opened_docs_widget);
     opened_docs_dock->setFeatures(QDockWidget::DockWidgetClosable);
     opened_docs_dock->hide();
@@ -141,8 +139,7 @@ void McleodIDE::UpdateCurrentIndexOnDelete(int) {
     opened_docs_widget->setCurrentRow(opened_docs_widget->count() - 1);
 }
 
-void McleodIDE::CreateFile()
-{
+void McleodIDE::CreateFile() {
     TextEditor* new_text_edit = new TextEditor;
     int index = tabs->addTab(new_text_edit, "untitled");
     tabs->setCurrentIndex(index);
@@ -292,6 +289,8 @@ void McleodIDE::Redo(){
 }
 
 void McleodIDE::CompileAndExecute() {
+    dialog = new Dialog(this);
+    dialog->show();
     Scanner s(tabs->tabToolTip(tabs->currentIndex()).toStdString());
     Compiler c(s.scanTokens());
     Bytecode bc = c.compile();

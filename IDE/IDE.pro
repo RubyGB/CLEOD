@@ -21,6 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += $$PWD/../
 
 SOURCES += \
+    dialog.cpp \
     main.cpp \
     mcleodide.cpp \
     texteditor.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     ../Backend/GarbageCollector.cpp
 
 HEADERS += \
+    dialog.h \
     linenumberarea.h \
     mcleodide.h \
     texteditor.h \
@@ -44,6 +46,7 @@ HEADERS += \
     ../Backend/GarbageCollector.h
 
 FORMS += \
+    dialog.ui \
     mcleodide.ui
 
 # Default rules for deployment.

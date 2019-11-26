@@ -31,6 +31,7 @@
 
 #include "linenumberarea.h"
 #include "texteditor.h"
+#include "dialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class McleodIDE; }
@@ -84,11 +85,13 @@ private:
     QDockWidget* file_explorer_dock;
     QDockWidget* opened_docs_dock;
 
+    QTabWidget* textEdit;
     void SetupTabWidget();
     void SetupFileDock();
     void CreateDocWindows();
     void SetupMenu();
 
     QMenu *viewMenu;
+    Dialog *dialog;
 };
 #endif // MCLEODIDE_H
