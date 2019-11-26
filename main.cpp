@@ -31,6 +31,9 @@ int main() {
     catch(ByteOutOfRangeException &be) {
         std::cout << be.what() << std::endl;
     }
+    catch(ExecutionException &ee) {
+        std::cout << ee.what() << std::endl;
+    }
 
     /*
     std::vector<Token> mockTokens = {

@@ -32,6 +32,8 @@ void Scanner::scanToken() {
         case ')': addToken(TokenType::RIGHT_PAREN); break;
         case '{': addToken(TokenType::LEFT_BRACE); break;
         case '}': addToken(TokenType::RIGHT_BRACE); break;
+        case '[': addToken(TokenType::LEFT_BRACKET); break;
+        case ']': addToken(TokenType::RIGHT_BRACKET); break;
         case ',': addToken(TokenType::COMMA); break;
         case '.': addToken(TokenType::DOT); break;
         case '-': addToken(TokenType::MINUS); break;
@@ -51,10 +53,12 @@ void Scanner::scanToken() {
             break;
         case '<':
             if (match('=')){addToken(TokenType::LESS_EQUAL);}
+            else if(match('<')){addToken(TokenType::LEFT_CHEVRON);}
             else {addToken(TokenType::LESS);}
             break;
         case '>':
             if (match('=')){addToken(TokenType::GREATER_EQUAL);}
+            else if(match('>')){addToken(TokenType::RIGHT_CHEVRON);}
             else {addToken(TokenType::GREATER);}
             break;
         case ':':

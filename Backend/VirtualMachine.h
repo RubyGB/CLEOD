@@ -27,6 +27,7 @@ struct Data {
     Data(bool b) : type(DataType::BOOL), data(b) {}
     Data(Object *o) : type(DataType::VAR), data(o) {}
     Data(StringObject *so) : type(DataType::STRING), data(so) {}
+    Data(ArrayObject *ao) : type(DataType::ARRAY), data(ao) {}
 };
 
 class ExecutionException {
@@ -64,6 +65,8 @@ private:
     void jmp();
     void assn();
     void reassn();
+    void endarr();
+    void ind();
 
 public:
     VirtualMachine(Bytecode &code);
